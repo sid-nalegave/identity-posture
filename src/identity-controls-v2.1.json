@@ -1,0 +1,310 @@
+{
+  "bank_id": "workforce-iam-v2",
+  "version": "2.0.1",
+  "last_updated": "2026-03",
+  "scope": "workforce_iam",
+  "control_count": 18,
+  "sections": [
+    {
+      "section_id": "auth",
+      "label": "Authentication & MFA"
+    },
+    {
+      "section_id": "priv",
+      "label": "Privileged Access"
+    },
+    {
+      "section_id": "life",
+      "label": "Identity Lifecycle & Governance"
+    },
+    {
+      "section_id": "mon",
+      "label": "Monitoring & Detection"
+    }
+  ],
+  "controls": [
+    {
+      "id": "AUTH-01",
+      "section_id": "auth",
+      "title": "Phishing-Resistant MFA for Privileged Accounts",
+      "tier": "foundational",
+      "weight": 5,
+      "order": 1,
+      "prompt": "Are privileged or administrative accounts protected with phishing-resistant MFA (FIDO2, WebAuthn, or device-bound authentication)?",
+      "rationale": "Admin accounts are the highest-value identity targets; phishing-resistant MFA blocks most credential replay attacks.",
+      "examples": [
+        "FIDO2 security keys",
+        "WebAuthn / passkeys",
+        "Okta FastPass (device-bound)"
+      ],
+      "next_step": "Require phishing-resistant MFA for all privileged identities in the identity provider, remove weaker factors such as SMS or email for administrator accounts, and enforce the policy with a controlled exception process."
+    },
+    {
+      "id": "AUTH-02",
+      "section_id": "auth",
+      "title": "MFA Enforcement for All Workforce Users",
+      "tier": "foundational",
+      "weight": 5,
+      "order": 2,
+      "prompt": "Is MFA required for all workforce users when accessing corporate applications and identity providers?",
+      "rationale": "MFA is the single most effective control for preventing credential-based account takeover.",
+      "examples": [
+        "MFA required by default for all users",
+        "Exceptions require approval and are time-bound",
+        "Enrollment enforced at first sign-in"
+      ],
+      "next_step": "Create a default authentication policy requiring MFA for all workforce users, remove legacy single-factor login paths, and enforce MFA enrollment during onboarding."
+    },
+    {
+      "id": "AUTH-03",
+      "section_id": "auth",
+      "title": "Secure Account Recovery Controls",
+      "tier": "foundational",
+      "weight": 5,
+      "order": 3,
+      "prompt": "Are account recovery and password reset processes protected against social engineering and weak authentication factors?",
+      "rationale": "Attackers frequently bypass strong MFA by exploiting weak recovery flows.",
+      "examples": [
+        "Helpdesk resets require strong identity verification",
+        "Self-service recovery requires MFA or step-up verification",
+        "Recovery methods reviewed and restricted for privileged users"
+      ],
+      "next_step": "Require step-up verification for password resets and recovery flows, restrict weak recovery factors for administrators, and monitor recovery events for abnormal patterns."
+    },
+    {
+      "id": "AUTH-04",
+      "section_id": "auth",
+      "title": "Step-Up Authentication for Sensitive Actions",
+      "tier": "advanced",
+      "weight": 4,
+      "order": 4,
+      "prompt": "Are sensitive identity operations (privilege escalation, password reset, policy changes) protected with step-up authentication?",
+      "rationale": "Step-up verification reduces the risk of session hijacking or privilege abuse.",
+      "examples": [
+        "Re-authentication required for admin console changes",
+        "Step-up required for MFA reset or factor enrollment",
+        "Step-up required for role grants or privilege elevation"
+      ],
+      "next_step": "Require re-authentication before high-risk actions such as role assignment, MFA reset, or authentication policy changes and alert on repeated failures or abnormal sequences."
+    },
+    {
+      "id": "AUTH-05",
+      "section_id": "auth",
+      "title": "Session Risk Controls / Conditional Access",
+      "tier": "advanced",
+      "weight": 3,
+      "order": 5,
+      "prompt": "Are authentication sessions evaluated using risk signals such as device posture, location, or anomaly detection?",
+      "rationale": "Contextual access policies help detect and block suspicious authentication attempts.",
+      "examples": [
+        "Require managed device for sensitive applications",
+        "Block or challenge logins from unusual geographies",
+        "Enforce re-authentication for high-risk sessions"
+      ],
+      "next_step": "Implement conditional access rules using device posture, geographic anomalies, and impossible travel signals, prioritizing privileged users and critical applications."
+    },
+    {
+      "id": "PRIV-01",
+      "section_id": "priv",
+      "title": "Least Privilege Administrative Roles",
+      "tier": "foundational",
+      "weight": 5,
+      "order": 6,
+      "prompt": "Are administrative roles limited to the minimum permissions required and regularly reviewed?",
+      "rationale": "Excessive privileges significantly increase the blast radius of compromised accounts.",
+      "examples": [
+        "Custom admin roles scoped to specific tasks",
+        "Very small number of super administrators",
+        "Periodic review of admin assignments"
+      ],
+      "next_step": "Inventory privileged roles, remove unused assignments, replace broad admin roles with scoped roles, and require periodic certification of privileged access."
+    },
+    {
+      "id": "PRIV-02",
+      "section_id": "priv",
+      "title": "Dedicated Administrative Accounts",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 7,
+      "prompt": "Do administrators use separate privileged identities for administrative work instead of their daily user accounts?",
+      "rationale": "Separating administrative identities reduces the risk that a compromised user session results in privilege escalation.",
+      "examples": [
+        "Separate admin accounts",
+        "Stricter policies for admin sign-in",
+        "Time-bound or just-in-time elevation"
+      ],
+      "next_step": "Require dedicated administrative identities with stronger authentication policies and restrict their use to administrative tasks only."
+    },
+    {
+      "id": "PRIV-03",
+      "section_id": "priv",
+      "title": "Privileged Access Monitoring and Logging",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 8,
+      "prompt": "Are privileged authentication events and role changes logged and monitored for anomalies?",
+      "rationale": "Monitoring administrator activity is critical for detecting misuse or persistence.",
+      "examples": [
+        "Alerts on admin role assignments",
+        "Alerts on unusual admin logins",
+        "Logs forwarded to SIEM"
+      ],
+      "next_step": "Forward identity provider administrator logs to the SIEM and create alerts for role assignments, privilege escalation, and abnormal administrator sign-ins."
+    },
+    {
+      "id": "PRIV-04",
+      "section_id": "priv",
+      "title": "Break-Glass Emergency Accounts",
+      "tier": "advanced",
+      "weight": 3,
+      "order": 9,
+      "prompt": "Are emergency access (“break-glass”) accounts secured, monitored, and periodically tested?",
+      "rationale": "Emergency accounts can become hidden backdoors if not properly controlled.",
+      "examples": [
+        "Credentials stored in a vault",
+        "Use generates alerts",
+        "Access tested periodically"
+      ],
+      "next_step": "Limit break-glass accounts to a minimal set, store credentials in a secure vault with controlled access, and alert immediately when they are used."
+    },
+    {
+      "id": "LIFE-01",
+      "section_id": "life",
+      "title": "Automated Joiner-Mover-Leaver Lifecycle & Inactive Account Governance",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 10,
+      "prompt": "Are user accounts automatically provisioned and deprovisioned based on lifecycle events, and are inactive accounts periodically reviewed and disabled?",
+      "rationale": "Weak lifecycle governance leads to orphaned or dormant identities that attackers can exploit for persistence.",
+      "examples": [
+        "HR-driven provisioning",
+        "Automated access assignment",
+        "Detection and disabling of inactive accounts"
+      ],
+      "next_step": "Integrate HR as the authoritative identity source, automate joiner and leaver provisioning, and enforce policies that disable inactive accounts after a defined period."
+    },
+    {
+      "id": "LIFE-02",
+      "section_id": "life",
+      "title": "Rapid Offboarding of Departing Users",
+      "tier": "foundational",
+      "weight": 5,
+      "order": 11,
+      "prompt": "Are user accounts disabled immediately when employees or contractors leave the organization?",
+      "rationale": "Delayed deprovisioning is a common cause of unauthorized access after termination.",
+      "examples": [
+        "Immediate disablement via HR trigger",
+        "Session revocation",
+        "Automatic SaaS deprovisioning"
+      ],
+      "next_step": "Define a strict offboarding SLA, automate termination-driven account disablement, revoke active sessions, and remove privileged access immediately."
+    },
+    {
+      "id": "LIFE-03",
+      "section_id": "life",
+      "title": "Machine Identity / Service Account Governance",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 12,
+      "prompt": "Are service accounts, API credentials, and machine identities governed with ownership, credential rotation, and least-privilege permissions?",
+      "rationale": "Machine identities frequently accumulate excessive privileges and long-lived credentials.",
+      "examples": [
+        "Service accounts mapped to owners",
+        "Credential rotation enforced",
+        "Monitoring of machine identity usage"
+      ],
+      "next_step": "Inventory machine identities, assign owners, rotate credentials regularly, and reduce privileges to only what each workload requires."
+    },
+    {
+      "id": "LIFE-04",
+      "section_id": "life",
+      "title": "Periodic Access Reviews",
+      "tier": "advanced",
+      "weight": 3,
+      "order": 13,
+      "prompt": "Are access rights periodically reviewed by application or data owners?",
+      "rationale": "Access reviews help detect privilege creep and inappropriate access.",
+      "examples": [
+        "Quarterly privileged access reviews",
+        "Documented access attestations"
+      ],
+      "next_step": "Start with privileged groups and critical applications, require access owners to review assignments quarterly, and remove unnecessary access."
+    },
+    {
+      "id": "LIFE-05",
+      "section_id": "life",
+      "title": "Third-Party or Contractor Access Governance",
+      "tier": "advanced",
+      "weight": 3,
+      "order": 14,
+      "prompt": "Are external identities (vendors, contractors) governed with expiration dates, sponsorship, and monitoring?",
+      "rationale": "Third-party identities often bypass lifecycle controls and introduce risk.",
+      "examples": [
+        "Expiring access",
+        "Sponsor ownership",
+        "Limited privilege assignment"
+      ],
+      "next_step": "Require sponsors for all external identities, enforce automatic access expiration, and include contractor accounts in lifecycle and monitoring controls."
+    },
+    {
+      "id": "MON-01",
+      "section_id": "mon",
+      "title": "Centralized Identity Event Logging",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 15,
+      "prompt": "Are authentication events, policy changes, and privilege escalations centrally logged?",
+      "rationale": "Centralized identity telemetry is required to detect identity-driven attacks.",
+      "examples": [
+        "IdP logs sent to SIEM",
+        "Administrative changes logged"
+      ],
+      "next_step": "Ensure identity provider logs are ingested into a central monitoring platform with sufficient retention and searchable audit fields."
+    },
+    {
+      "id": "MON-02",
+      "section_id": "mon",
+      "title": "Detection of Suspicious Login Activity",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 16,
+      "prompt": "Are alerts generated for suspicious login patterns such as impossible travel, repeated failures, or unusual device/location activity?",
+      "rationale": "Detection controls reduce the time attackers remain undetected after credential compromise.",
+      "examples": [
+        "Impossible travel alerts",
+        "Password spray detection"
+      ],
+      "next_step": "Deploy detection rules for password spray, impossible travel, and anomalous login patterns and route alerts to a monitored response channel."
+    },
+    {
+      "id": "MON-03",
+      "section_id": "mon",
+      "title": "Privileged Activity Monitoring",
+      "tier": "foundational",
+      "weight": 4,
+      "order": 17,
+      "prompt": "Are administrative actions and privilege changes monitored and reviewed for suspicious behavior?",
+      "rationale": "Privileged misuse often precedes major breaches and must be detectable.",
+      "examples": [
+        "Alert on new admin creation",
+        "Alert on identity policy changes"
+      ],
+      "next_step": "Create monitoring rules for new administrator creation, identity configuration changes, and privilege escalations, and review these events regularly."
+    },
+    {
+      "id": "MON-04",
+      "section_id": "mon",
+      "title": "Identity Incident Response Procedures",
+      "tier": "advanced",
+      "weight": 3,
+      "order": 18,
+      "prompt": "Does the organization maintain documented procedures for responding to identity-related security incidents?",
+      "rationale": "Clear response procedures reduce recovery time during identity compromise.",
+      "examples": [
+        "Account takeover response playbooks",
+        "Credential rotation procedures"
+      ],
+      "next_step": "Document a response runbook covering account takeover, session revocation, and credential rotation procedures. Test it against a tabletop scenario within 90 days."
+    }
+  ]
+}
