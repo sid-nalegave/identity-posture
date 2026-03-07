@@ -59,7 +59,7 @@ export function QuestionCard({
   onNotesChange,
 }: QuestionCardProps) {
   const [showHelp, setShowHelp] = useState(false);
-  const [showNotes, setShowNotes] = useState(false);
+  const [showNotes, setShowNotes] = useState(() => (response?.notes?.trim().length ?? 0) > 0);
   const [saved, setSaved] = useState(false);
   const savedRef = useRef<ReturnType<typeof window.setTimeout> | null>(null);
 

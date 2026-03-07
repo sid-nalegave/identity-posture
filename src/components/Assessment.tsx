@@ -17,6 +17,7 @@ import {
 } from "../lib/storage.ts";
 import type { AnswerStatus, AssessmentState, ControlBank } from "../lib/types.ts";
 import controlData from "../identity-controls-v2.1.json";
+import { AssessmentControls } from "./AssessmentControls.tsx";
 import { QuestionCard } from "./QuestionCard.tsx";
 import { ResultsPanel } from "./ResultsPanel.tsx";
 import { SectionNav } from "./SectionNav.tsx";
@@ -220,6 +221,12 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
               </button>
             ))}
           </div>
+          <AssessmentControls
+            showUnansweredOnly={showUnansweredOnly}
+            onToggleFilter={() => setShowUnansweredOnly((value) => !value)}
+            onReset={handleReset}
+            className="mt-4 space-y-4"
+          />
         </div>
       ) : null}
 
