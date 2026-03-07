@@ -1,0 +1,26 @@
+name: Feature request
+description: Suggest a concise improvement
+title: "[Feature]: "
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or need
+      description: What is missing or frustrating today?
+      placeholder: A short description of the problem to solve.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed change
+      description: What should change?
+      placeholder: A short description of the proposed improvement.
+    validations:
+      required: true
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: Optional examples, mockups, or constraints.
+      placeholder: Links, references, examples, or constraints.
