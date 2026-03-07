@@ -112,6 +112,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
     const navigationPlan = planNavigation(
       { kind: "section", id: sectionId },
       isDesktop,
+      mobileTab,
       showUnansweredOnly,
     );
     setShowUnansweredOnly(navigationPlan.showUnansweredOnly);
@@ -124,6 +125,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
     const navigationPlan = planNavigation(
       { kind: "control", id: controlId },
       isDesktop,
+      mobileTab,
       showUnansweredOnly,
     );
     setShowUnansweredOnly(navigationPlan.showUnansweredOnly);

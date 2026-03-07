@@ -88,6 +88,42 @@ describe("saveAssessment / loadAssessment", () => {
     expect(loaded!.responses["C1"].notes).toBe("");
   });
 
+  it("preserves assessment metadata updated_at when saving an unchanged assessment", () => {
+    const state = {
+      assessment_meta: {
+        created_at: "2026-01-01T00:00:00.000Z",
+        updated_at: "2026-01-02T00:00:00.000Z",
+      },
+      responses: {},
+    };
+
+    saveAssessment(state);
+
+    const persisted = JSON.parse(store["identity_posture_assessment_v1"]);
+    expect(persisted.assessment_meta.updated_at).toBe("2026-01-02T00:00:00.000Z");
+  });
+
+  it("preserves response updated_at values when already present", () => {
+    const state = {
+      assessment_meta: {
+        created_at: "2026-01-01T00:00:00.000Z",
+        updated_at: "2026-01-02T00:00:00.000Z",
+      },
+      responses: {
+        C1: {
+          status: "implemented" as const,
+          notes: "existing",
+          updated_at: "2026-01-03T00:00:00.000Z",
+        },
+      },
+    };
+
+    saveAssessment(state);
+
+    const persisted = JSON.parse(store["identity_posture_assessment_v1"]);
+    expect(persisted.responses.C1.updated_at).toBe("2026-01-03T00:00:00.000Z");
+  });
+
   it("swallows storage write failures", () => {
     const originalSetItem = localStorageMock.setItem;
     localStorageMock.setItem = () => {

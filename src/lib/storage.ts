@@ -91,7 +91,7 @@ function toPersistedAssessment(state: AssessmentState): PersistedAssessmentState
   return {
     assessment_meta: {
       created_at: state.assessment_meta.created_at,
-      updated_at: updatedAt,
+      updated_at: state.assessment_meta.updated_at,
     },
     responses: Object.fromEntries(
       Object.entries(state.responses).map(([controlId, response]) => [

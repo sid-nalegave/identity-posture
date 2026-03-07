@@ -62,18 +62,26 @@ describe("getVisibleControls", () => {
 
 describe("planNavigation", () => {
   it("switches mobile results navigation back to questions and clears the unanswered filter", () => {
-    expect(planNavigation({ kind: "control", id: "AUTH-01" }, false, true)).toEqual({
+    expect(planNavigation({ kind: "control", id: "AUTH-01" }, false, "results", true)).toEqual({
       mobileTab: "questions",
       showUnansweredOnly: false,
       pendingTarget: { kind: "control", id: "AUTH-01" },
     });
   });
 
-  it("keeps desktop navigation renderable while still clearing the unanswered filter", () => {
-    expect(planNavigation({ kind: "section", id: "auth" }, true, true)).toEqual({
+  it("preserves the current mobile tab during desktop navigation while clearing the unanswered filter", () => {
+    expect(planNavigation({ kind: "section", id: "auth" }, true, "results", true)).toEqual({
       mobileTab: "results",
       showUnansweredOnly: false,
       pendingTarget: { kind: "section", id: "auth" },
+    });
+  });
+
+  it("keeps the questions tab selected after desktop navigation when mobile was last on questions", () => {
+    expect(planNavigation({ kind: "control", id: "AUTH-01" }, true, "questions", false)).toEqual({
+      mobileTab: "questions",
+      showUnansweredOnly: false,
+      pendingTarget: { kind: "control", id: "AUTH-01" },
     });
   });
 });

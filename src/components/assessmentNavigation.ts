@@ -26,10 +26,11 @@ export function getVisibleControls(
 export function planNavigation(
   target: NavigationTarget,
   isDesktop: boolean,
+  mobileTab: MobileTab,
   showUnansweredOnly: boolean,
 ): NavigationPlan {
   return {
-    mobileTab: isDesktop ? "results" : "questions",
+    mobileTab: isDesktop ? mobileTab : "questions",
     showUnansweredOnly: showUnansweredOnly ? false : showUnansweredOnly,
     pendingTarget: target,
   };
