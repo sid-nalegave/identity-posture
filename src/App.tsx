@@ -1,35 +1,49 @@
-import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
-import './App.css'
+import { useEffect, useState } from "react";
+import { Assessment } from "./components/Assessment.tsx";
+import { Landing } from "./components/Landing.tsx";
+import { getInitialTheme, setTheme, type ThemeMode } from "./lib/theme.ts";
 
-function App() {
-  const [count, setCount] = useState(0)
+type Screen = "landing" | "assessment";
 
-  return (
-    <>
-      <div>
-        <a href="https://vite.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.tsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
-    </>
-  )
+function getInitialScreen(): Screen {
+  return window.location.hash === "#assessment" ? "assessment" : "landing";
 }
 
-export default App
+function App() {
+  const [screen, setScreen] = useState<Screen>(getInitialScreen);
+  const [themeMode, setThemeMode] = useState<ThemeMode>(getInitialTheme);
+
+  useEffect(() => {
+    const handler = () => setScreen(getInitialScreen());
+    window.addEventListener("hashchange", handler);
+    return () => window.removeEventListener("hashchange", handler);
+  }, []);
+
+  useEffect(() => {
+    setTheme(themeMode);
+  }, [themeMode]);
+
+  const toggleTheme = () => {
+    setThemeMode((current) => (current === "dark" ? "light" : "dark"));
+  };
+
+  const isDark = themeMode === "dark";
+
+  const goToLanding = () => {
+    window.location.hash = "";
+    setScreen("landing");
+  };
+
+  const goToAssessment = () => {
+    window.location.hash = "#assessment";
+    setScreen("assessment");
+  };
+
+  return screen === "assessment" ? (
+    <Assessment isDark={isDark} onBack={goToLanding} onToggleTheme={toggleTheme} />
+  ) : (
+    <Landing isDark={isDark} onStart={goToAssessment} onToggleTheme={toggleTheme} />
+  );
+}
+
+export default App;
