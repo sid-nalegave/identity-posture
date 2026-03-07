@@ -176,4 +176,36 @@ describe("Assessment", () => {
     expect(html).toContain("Show unanswered only");
     expect(html).toContain("Reset Assessment");
   });
+
+  it("renders the persistence note when the results panel is visible", () => {
+    Object.defineProperty(globalThis, "window", {
+      value: {
+        innerWidth: 1280,
+        location: { hash: "" },
+        matchMedia: () => ({
+          matches: true,
+          addEventListener: () => {},
+          removeEventListener: () => {},
+        }),
+      },
+      writable: true,
+    });
+
+    Object.defineProperty(globalThis, "localStorage", {
+      value: {
+        getItem: () => null,
+        setItem: () => {},
+        removeItem: () => {},
+      },
+      writable: true,
+    });
+
+    const html = renderToStaticMarkup(
+      <Assessment isDark={false} onBack={() => {}} onToggleTheme={() => {}} />,
+    );
+
+    expect(html).toContain(
+      "Generated locally. Responses and notes remain in this browser until cleared.",
+    );
+  });
 });

@@ -265,13 +265,9 @@ export function ResultsPanel({
           </button>
         </div>
         <p className="text-xs leading-relaxed text-text-faint">
-          Generated locally. Assessment data is not transmitted.
+          Generated locally. Responses and notes remain in this browser until cleared.
         </p>
       </section>
-
-      <p className="pt-1 text-center text-xs leading-relaxed text-text-faint">
-        Workforce IAM scope. CIAM coverage can be added in a future release.
-      </p>
     </div>
   );
 }
