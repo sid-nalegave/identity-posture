@@ -1,1 +1,178 @@
 @import "tailwindcss";
+
+@theme {
+  --font-sans: "Sora", sans-serif;
+  --font-mono: "IBM Plex Mono", monospace;
+
+  --color-page: #f4f7fc;
+  --color-surface: #ffffff;
+  --color-border: #d8e0ee;
+  --color-border-subtle: #e8eef7;
+
+  --color-text-primary: #0b1526;
+  --color-text-body: #243347;
+  --color-text-secondary: #3d5472;
+  --color-text-muted: #6b829c;
+  --color-text-faint: #9db0c4;
+
+  --color-accent: #1a55c0;
+  --color-accent-hover: #1548a8;
+  --color-accent-subtle: #ebf1fa;
+  --color-accent-border: #c4d4ec;
+
+  --color-btn-bg: #1a55c0;
+  --color-btn-border: #1548a8;
+  --color-btn-text: #ffffff;
+  --color-btn-inactive: #edf1f9;
+  --color-btn-inactive-border: #c4d4ec;
+
+  --color-risk: #c53030;
+  --color-risk-bg: #fef2f2;
+  --color-risk-border: #fecaca;
+  --color-warning: #b7530a;
+  --color-warning-bg: #fff7ed;
+  --color-warning-border: #fed7aa;
+  --color-caution: #8a6700;
+  --color-caution-bg: #fefce8;
+  --color-caution-border: #fef08a;
+  --color-healthy: #276749;
+  --color-healthy-bg: #f0fdf4;
+  --color-healthy-border: #bbf7d0;
+
+  --color-focus-ring: #1a55c0;
+  --color-visited: #6344c8;
+
+  --radius-sm: 4px;
+  --radius: 6px;
+  --radius-lg: 8px;
+}
+
+.dark {
+  --color-page: #07090f;
+  --color-surface: #0a0e18;
+  --color-border: #161e30;
+  --color-border-subtle: #1a2440;
+
+  --color-text-primary: #edf0f7;
+  --color-text-body: #c4cedf;
+  --color-text-secondary: #8da3bf;
+  --color-text-muted: #5a7090;
+  --color-text-faint: #2e4060;
+
+  --color-accent: #5a9fff;
+  --color-accent-hover: #4a8fef;
+  --color-accent-subtle: #0d1628;
+  --color-accent-border: #1a3a8a;
+
+  --color-btn-bg: #1a3a8a;
+  --color-btn-border: #2a5acc;
+  --color-btn-text: #ffffff;
+  --color-btn-inactive: #111828;
+  --color-btn-inactive-border: #253550;
+
+  --color-risk: #fc8181;
+  --color-risk-bg: rgba(252, 129, 129, 0.1);
+  --color-risk-border: rgba(252, 129, 129, 0.3);
+  --color-warning: #f6ad55;
+  --color-warning-bg: rgba(246, 173, 85, 0.1);
+  --color-warning-border: rgba(246, 173, 85, 0.3);
+  --color-caution: #f6e05e;
+  --color-caution-bg: rgba(246, 224, 94, 0.1);
+  --color-caution-border: rgba(246, 224, 94, 0.25);
+  --color-healthy: #68d391;
+  --color-healthy-bg: rgba(104, 211, 145, 0.1);
+  --color-healthy-border: rgba(104, 211, 145, 0.3);
+
+  --color-focus-ring: #5a9fff;
+  --color-visited: #a888ff;
+}
+
+@layer base {
+  * {
+    box-sizing: border-box;
+  }
+
+  html {
+    background-color: var(--color-page);
+  }
+
+  body {
+    margin: 0;
+    min-width: 320px;
+    font-family: var(--font-sans);
+    background-color: var(--color-page);
+    color: var(--color-text-primary);
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  a {
+    color: inherit;
+  }
+
+  button,
+  input,
+  textarea {
+    font: inherit;
+  }
+
+  *:focus-visible {
+    outline: 2px solid var(--color-focus-ring);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  :disabled,
+  [aria-disabled="true"] {
+    opacity: 0.38;
+    cursor: not-allowed;
+  }
+
+  ::selection {
+    background: color-mix(in srgb, var(--color-accent) 22%, transparent);
+  }
+
+  ::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+  }
+
+  ::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    border-radius: 999px;
+    background: color-mix(in srgb, var(--color-border) 85%, transparent);
+  }
+
+  .dark ::-webkit-scrollbar-thumb {
+    background: color-mix(in srgb, var(--color-border) 80%, transparent);
+  }
+}
+
+@layer components {
+  .panel-card {
+    @apply rounded-[6px] border border-border bg-surface;
+  }
+
+  .section-kicker {
+    @apply mb-3 block border-b border-border pb-2 font-mono text-[10px] font-bold uppercase tracking-[0.12em] text-text-secondary;
+  }
+
+  .btn-primary {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-[6px] border border-btn-border bg-btn-bg px-11 py-3.5 text-sm font-semibold tracking-[0.01em] text-btn-text transition-colors duration-150 hover:bg-accent-hover;
+  }
+
+  .btn-secondary {
+    @apply inline-flex cursor-pointer items-center justify-center rounded-[6px] border border-btn-inactive-border bg-btn-inactive px-4 py-2 text-xs font-medium text-text-secondary transition-colors duration-150 hover:border-accent hover:text-accent;
+  }
+
+  .status-pill {
+    @apply inline-flex items-center rounded-[6px] border px-2.5 py-1 font-mono text-[11px] font-semibold tracking-[0.02em];
+  }
+}
+
+#root {
+  min-height: 100vh;
+}

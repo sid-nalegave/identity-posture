@@ -1,0 +1,126 @@
+import { useState } from "react";
+import { ThemeToggle } from "./ThemeToggle.tsx";
+
+interface LandingProps {
+  isDark: boolean;
+  onStart: () => void;
+  onToggleTheme: () => void;
+}
+
+const outcomes = [
+  {
+    label: "Exposure by domain",
+    body: "Section-level scoring across authentication, privileged access, identity lifecycle, and monitoring.",
+  },
+  {
+    label: "Prioritized risk view",
+    body: "The highest-impact gaps ranked by control weight and proximity to credential compromise.",
+  },
+  {
+    label: "Leadership-ready summary",
+    body: "A concise posture readout for an executive review or risk update.",
+  },
+];
+
+const alignments = ["NIST SP 800-63", "CIS Controls", "Enterprise IAM patterns"];
+
+export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
+  const [isHovering, setIsHovering] = useState(false);
+
+  return (
+    <div className="min-h-screen bg-page text-text-primary">
+      <nav className="border-b border-border bg-surface">
+        <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
+          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-muted md:text-xs">
+            Identity Security Posture Review
+          </span>
+          <div className="flex items-center gap-3">
+            <span className="hidden text-xs text-text-faint sm:inline">
+              Self-assessment. Not a certification.
+            </span>
+            <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+          </div>
+        </div>
+      </nav>
+
+      <main className="mx-auto flex min-h-[calc(100vh-56px)] w-full max-w-7xl flex-col">
+        <section className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 pb-16 pt-20 text-center">
+          <div className="mb-10 inline-flex flex-wrap items-center justify-center gap-0 overflow-hidden rounded-[6px] border border-border bg-surface">
+            {["Workforce IAM", "18 controls", "~5 minutes"].map((text, index) => (
+              <span
+                key={text}
+                className={`inline-flex items-center px-4 py-2 font-mono text-[11px] tracking-[0.08em] text-text-muted ${
+                  index > 0 ? "border-l border-border" : ""
+                }`}
+              >
+                {text}
+              </span>
+            ))}
+          </div>
+
+          <h1
+            className="mb-5 font-sans text-text-primary"
+            style={{ fontSize: "clamp(30px, 4.5vw, 48px)", lineHeight: 1.15, letterSpacing: "-0.025em" }}
+          >
+            Structured review of your
+            <br />
+            <span className="text-accent">identity security controls</span>
+          </h1>
+
+          <p
+            className="mb-12 max-w-xl text-text-secondary"
+            style={{ fontSize: "clamp(15px, 1.8vw, 17px)", lineHeight: 1.75 }}
+          >
+            Measure control coverage across the identity domains most often involved in security
+            incidents. Identify near-term exposure, understand control depth, and communicate
+            posture with clarity.
+          </p>
+
+          <button
+            type="button"
+            onClick={onStart}
+            onMouseOver={() => setIsHovering(true)}
+            onMouseOut={() => setIsHovering(false)}
+            className={`btn-primary ${isHovering ? "bg-accent-hover" : ""}`}
+          >
+            Begin Assessment
+          </button>
+
+          <p className="mt-4 text-xs text-text-faint">
+            No account required. Assessment data remains in this browser.
+          </p>
+        </section>
+
+        <section className="border-t border-border bg-surface px-6 py-10 md:px-10">
+          <div className="mx-auto max-w-5xl">
+            <div className="grid overflow-hidden rounded-[6px] border border-border md:grid-cols-3">
+              {outcomes.map((item, index) => (
+                <div
+                  key={item.label}
+                  className={`bg-surface p-6 ${index > 0 ? "border-t border-border md:border-l md:border-t-0" : ""}`}
+                >
+                  <p className="mb-2 text-sm font-semibold tracking-[0.01em] text-text-primary">
+                    {item.label}
+                  </p>
+                  <p className="text-sm leading-relaxed text-text-secondary">{item.body}</p>
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-7 flex flex-wrap items-center gap-2">
+              <span className="text-[11px] text-text-faint">Aligns with</span>
+              {alignments.map((alignment) => (
+                <span
+                  key={alignment}
+                  className="rounded-[6px] border border-border bg-page px-2.5 py-1 font-mono text-[11px] text-text-muted"
+                >
+                  {alignment}
+                </span>
+              ))}
+            </div>
+          </div>
+        </section>
+      </main>
+    </div>
+  );
+}

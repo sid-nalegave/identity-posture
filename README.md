@@ -1,73 +1,60 @@
-# React + TypeScript + Vite
+# Identity Security Posture Review
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Static React + TypeScript + Vite frontend for running an identity security posture assessment in the browser.
 
-Currently, two official plugins are available:
+## Development
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+Install dependencies and run the app:
 
-## React Compiler
-
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
-
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
-
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+To expose the app on your local network:
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
-
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+```bash
+npm run dev -- --host 0.0.0.0 --port 5173
 ```
+
+## Verification
+
+Run the standard checks:
+
+```bash
+npm run format
+npm run lint
+npm test
+npm run build
+```
+
+## Security Baseline
+
+The app includes a repo-visible baseline Content Security Policy in [index.html](/Users/sidnalegave-mini/Projects/web/identity-posture/index.html). This is intended to make the policy visible in source control for static hosting scenarios, but it is not the full production control surface.
+
+Current baseline allows:
+- local app assets from `self`
+- local image data URLs
+- Google Fonts stylesheet from `https://fonts.googleapis.com`
+- Google Fonts files from `https://fonts.gstatic.com`
+
+Current baseline blocks:
+- remote scripts
+- plugin/object content
+- cross-origin form submission
+
+## Production Deployment Requirements
+
+Production hosting should deliver security headers as HTTP response headers. The meta CSP in `index.html` is only a baseline and does not replace header-delivered policy.
+
+At minimum, production hosting should set:
+
+```text
+Content-Security-Policy: default-src 'self'; script-src 'self'; connect-src 'self'; img-src 'self' data:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'none'
+X-Frame-Options: DENY
+```
+
+Notes:
+- `frame-ancestors` is not enforced from a meta tag, so it must be sent as an HTTP response header.
+- `X-Frame-Options: DENY` is optional but recommended for older browser compatibility.
+- If fonts are later self-hosted, the CSP can be tightened further by removing the Google Fonts origins.
