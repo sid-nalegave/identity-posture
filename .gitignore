@@ -25,3 +25,6 @@ dist-ssr
 docs/
 AGENTS.md
 CLAUDE.md
+.env
+.env.*
+!.env.example
