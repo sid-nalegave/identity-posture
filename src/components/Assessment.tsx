@@ -164,7 +164,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
             </button>
             {isDesktop ? (
               <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-faint">
-                Identity Security Posture Review
+                Identity Posture
               </span>
             ) : (
               <div>

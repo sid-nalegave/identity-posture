@@ -171,6 +171,25 @@
   .status-pill {
     @apply inline-flex items-center rounded-[6px] border px-2.5 py-1 font-mono text-[11px] font-semibold tracking-[0.02em];
   }
+
+  .hero-grid {
+    position: relative;
+  }
+
+  .hero-grid::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: radial-gradient(
+      circle,
+      color-mix(in srgb, var(--color-accent) 20%, transparent) 1px,
+      transparent 1px
+    );
+    background-size: 28px 28px;
+    mask-image: radial-gradient(ellipse 100% 100% at 50% 0%, black 0%, transparent 80%);
+    pointer-events: none;
+    z-index: 0;
+  }
 }
 
 #root {
