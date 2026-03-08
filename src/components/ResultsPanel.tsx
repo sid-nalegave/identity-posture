@@ -203,14 +203,14 @@ export function ResultsPanel({
                 onClick={() => onSectionClick(section.section_id)}
                 className="block w-full rounded-[6px] border border-transparent px-2 py-2 text-left transition-colors hover:border-border hover:bg-page"
               >
-                <div className="mb-1.5 flex items-center justify-between gap-3">
+                <div className="mb-1.5 flex items-start justify-between gap-3">
                   <span className="text-sm text-text-secondary">{section.label}</span>
                   <span
-                    className={`font-mono text-xs font-semibold ${
+                    className={`shrink-0 font-mono text-xs font-semibold ${
                       hasSectionScore && sectionTone ? sectionTone.text : "text-text-muted"
                     }`}
                   >
-                    {score !== null ? `${Math.round(score)}% ${sectionBand!.label}` : "N/A"}
+                    {score !== null ? `${Math.round(score)}%` : "N/A"}
                   </span>
                 </div>
                 <div className="h-1.5 rounded-[6px] bg-border-subtle">
