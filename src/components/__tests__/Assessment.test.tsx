@@ -2,6 +2,7 @@ import { renderToStaticMarkup } from "react-dom/server";
 import { describe, expect, it, vi } from "vitest";
 import { Assessment } from "../Assessment.tsx";
 import { AssessmentControls } from "../AssessmentControls.tsx";
+import { SectionNav } from "../SectionNav.tsx";
 import { getVisibleControls, planNavigation } from "../assessmentNavigation.ts";
 import type { AssessmentState, Control } from "../../lib/types.ts";
 
@@ -113,6 +114,22 @@ function findElement(
 
   return null;
 }
+
+describe("SectionNav", () => {
+  it("renders section progress and omits Scope block", () => {
+    const html = renderToStaticMarkup(
+      <SectionNav
+        sectionScores={[{ section_id: "auth", label: "Authentication", answered: 1, total: 3, score: null }]}
+        showUnansweredOnly={false}
+        onToggleFilter={() => {}}
+        onSectionClick={() => {}}
+        onReset={() => {}}
+      />,
+    );
+    expect(html).toContain("Authentication");
+    expect(html.toLowerCase()).not.toContain("scope");
+  });
+});
 
 describe("AssessmentControls", () => {
   it("invokes the filter and reset handlers", () => {

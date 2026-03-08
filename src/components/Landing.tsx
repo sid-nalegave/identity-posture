@@ -9,16 +9,19 @@ interface LandingProps {
 
 const outcomes = [
   {
+    index: "01",
     label: "Exposure by domain",
-    body: "Section-level scoring across authentication, privileged access, identity lifecycle, and monitoring.",
+    body: "A score for each identity domain so you can see exactly where coverage is weak.",
   },
   {
-    label: "Prioritized risk view",
-    body: "The highest-impact gaps ranked by control weight and proximity to credential compromise.",
+    index: "02",
+    label: "Prioritised risk view",
+    body: "Your unaddressed gaps ranked by severity — foundational controls first.",
   },
   {
+    index: "03",
     label: "Leadership-ready summary",
-    body: "A concise posture readout for an executive review or risk update.",
+    body: "A one-paragraph summary you can paste into a risk update or board report.",
   },
 ];
 
@@ -32,7 +35,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
       <nav className="border-b border-border bg-surface">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
           <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-muted md:text-xs">
-            Identity Security Posture Review
+            Identity Posture
           </span>
           <div className="flex items-center gap-3">
             <span className="hidden text-xs text-text-faint sm:inline">
@@ -43,10 +46,10 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
         </div>
       </nav>
 
-      <main className="mx-auto flex min-h-[calc(100vh-56px)] w-full max-w-7xl flex-col">
-        <section className="mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 pb-16 pt-20 text-center">
+      <main className="flex min-h-[calc(100vh-56px)] w-full flex-col">
+        <section className="hero-grid mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 pb-24 pt-20 md:pb-16 text-center">
           <div className="mb-10 inline-flex flex-wrap items-center justify-center gap-0 overflow-hidden rounded-[6px] border border-border bg-surface">
-            {["Workforce IAM", "18 controls", "~5 minutes"].map((text, index) => (
+            {["Workforce IAM", "18 controls", "Scored output"].map((text, index) => (
               <span
                 key={text}
                 className={`inline-flex items-center px-4 py-2 font-mono text-[11px] tracking-[0.08em] text-text-muted ${
@@ -71,9 +74,8 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             className="mb-12 max-w-xl text-text-secondary"
             style={{ fontSize: "clamp(15px, 1.8vw, 17px)", lineHeight: 1.75 }}
           >
-            Measure control coverage across the identity domains most often involved in security
-            incidents. Identify near-term exposure, understand control depth, and communicate
-            posture with clarity.
+            Full coverage across identity domains, from authentication to monitoring. Know exactly
+            where you stand.
           </p>
 
           <button
@@ -81,7 +83,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             onClick={onStart}
             onMouseOver={() => setIsHovering(true)}
             onMouseOut={() => setIsHovering(false)}
-            className={`btn-primary ${isHovering ? "bg-accent-hover" : ""}`}
+            className={`btn-primary text-base ${isHovering ? "bg-accent-hover" : ""}`}
           >
             Begin Assessment
           </button>
@@ -91,7 +93,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
           </p>
         </section>
 
-        <section className="border-t border-border bg-surface px-6 py-10 md:px-10">
+        <section className="border-t border-border bg-surface px-6 pt-14 pb-10 md:py-10 md:px-10">
           <div className="mx-auto max-w-5xl">
             <div className="grid overflow-hidden rounded-[6px] border border-border md:grid-cols-3">
               {outcomes.map((item, index) => (
@@ -99,6 +101,9 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
                   key={item.label}
                   className={`bg-surface p-6 ${index > 0 ? "border-t border-border md:border-l md:border-t-0" : ""}`}
                 >
+                  <p className="mb-2 font-mono text-[11px] tracking-[0.08em] text-text-faint">
+                    {item.index}
+                  </p>
                   <p className="mb-2 text-sm font-semibold tracking-[0.01em] text-text-primary">
                     {item.label}
                   </p>

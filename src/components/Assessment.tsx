@@ -164,7 +164,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
             </button>
             {isDesktop ? (
               <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-faint">
-                Identity Security Posture Review
+                Identity Posture
               </span>
             ) : (
               <div>
@@ -234,17 +234,16 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
 
       <div
         className="mx-auto w-full max-w-[1360px] flex-1 lg:grid"
-        style={{ gridTemplateColumns: isDesktop ? "220px minmax(0,1fr) 320px" : undefined }}
+        style={{ gridTemplateColumns: isDesktop ? "260px minmax(0,1fr) 320px" : undefined }}
       >
         {isDesktop ? (
           <aside
-            className="border-r border-border bg-surface px-4 py-6"
+            className="py-5"
             style={{ position: "sticky", top: NAV_H, height: `calc(100vh - ${NAV_H}px)`, overflowY: "auto" }}
           >
             <SectionNav
               sectionScores={sectionScores}
               showUnansweredOnly={showUnansweredOnly}
-              totalControls={totalControls}
               onToggleFilter={() => setShowUnansweredOnly((value) => !value)}
               onSectionClick={scrollToSection}
               onReset={handleReset}
@@ -260,18 +259,9 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
               maxHeight: isDesktop ? `calc(100vh - ${NAV_H}px)` : undefined,
             }}
           >
-            <section className="mb-6">
-              <p className="mb-2 font-mono text-[10px] uppercase tracking-[0.12em] text-text-secondary">
-                Assessment Scope
-              </p>
-              <h2 className="text-xl font-bold leading-tight tracking-tight text-text-primary">
-                Core Assessment
-              </h2>
-              <p className="mt-2 max-w-2xl text-sm leading-relaxed text-text-secondary">
-                {totalControls} controls across authentication, privileged access, identity
-                lifecycle, and monitoring.
-              </p>
-            </section>
+            <p className="mb-6 font-mono text-[11px] uppercase tracking-[0.12em] text-text-faint">
+              Workforce IAM · {totalControls} controls · 4 domains
+            </p>
 
             <div className="space-y-8">
               {sections.map((section) => {
@@ -284,6 +274,8 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
 
                 const sectionScore = sectionScores.find((item) => item.section_id === section.section_id);
 
+                const sectionIndex = sections.indexOf(section);
+
                 return (
                   <section
                     key={section.section_id}
@@ -291,13 +283,18 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
                       sectionRefs.current[section.section_id] = element;
                     }}
                   >
-                    <div className="mb-4 flex items-center gap-3 border-b border-border pb-3">
-                      <h3 className="font-mono text-[11px] font-bold uppercase tracking-[0.12em] text-text-secondary">
-                        {section.label}
-                      </h3>
-                      <span className="font-mono text-[11px] text-text-faint">
-                        {(sectionScore?.answered ?? 0)}/{sectionScore?.total ?? 0} answered
-                      </span>
+                    <div className="mb-4 border-b border-border pb-3">
+                      <p className="mb-0.5 font-mono text-[10px] text-text-faint">
+                        {String(sectionIndex + 1).padStart(2, "0")}
+                      </p>
+                      <div className="flex items-baseline gap-3">
+                        <h3 className="font-mono text-sm font-bold uppercase tracking-[0.12em] text-text-primary">
+                          {section.label}
+                        </h3>
+                        <span className="font-mono text-[11px] text-text-faint">
+                          {sectionScore?.answered ?? 0} / {sectionScore?.total ?? 0}
+                        </span>
+                      </div>
                     </div>
 
                     <div className="space-y-3">

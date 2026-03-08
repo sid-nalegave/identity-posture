@@ -114,7 +114,7 @@ export function ResultsPanel({
               ) : null}
             </div>
             <p className="mb-3 text-sm leading-relaxed text-text-body">{bandInfo.desc}</p>
-            <div className="h-1 rounded-[6px] bg-border-subtle">
+            <div className="h-1.5 rounded-[6px] bg-border-subtle">
               <div
                 className={`h-full rounded-[6px] transition-[width] duration-500 ${bandTone.progress}`}
                 style={{ width: `${Math.round(overallScore)}%` }}
@@ -177,12 +177,8 @@ export function ResultsPanel({
                       {risk.control.title}
                     </button>
                   </div>
-                  <p className="pl-5 text-sm leading-relaxed text-text-secondary">
-                    {risk.control.rationale}
-                  </p>
                   <p className="pl-5 pt-1 text-sm leading-relaxed text-text-muted">
-                    Next step: {risk.control.next_step.slice(0, 130)}
-                    {risk.control.next_step.length > 130 ? "..." : ""}
+                    {risk.control.next_step}
                   </p>
                 </div>
               );
@@ -207,17 +203,17 @@ export function ResultsPanel({
                 onClick={() => onSectionClick(section.section_id)}
                 className="block w-full rounded-[6px] border border-transparent px-2 py-2 text-left transition-colors hover:border-border hover:bg-page"
               >
-                <div className="mb-1.5 flex items-center justify-between gap-3">
+                <div className="mb-1.5 flex items-start justify-between gap-3">
                   <span className="text-sm text-text-secondary">{section.label}</span>
                   <span
-                    className={`font-mono text-xs font-semibold ${
+                    className={`shrink-0 font-mono text-xs font-semibold ${
                       hasSectionScore && sectionTone ? sectionTone.text : "text-text-muted"
                     }`}
                   >
-                    {score !== null ? `${Math.round(score)}% ${sectionBand!.label}` : "N/A"}
+                    {score !== null ? `${Math.round(score)}%` : "N/A"}
                   </span>
                 </div>
-                <div className="h-1 rounded-[6px] bg-border-subtle">
+                <div className="h-1.5 rounded-[6px] bg-border-subtle">
                   <div
                     className={`h-full rounded-[6px] transition-[width] duration-300 ${
                       hasSectionScore && sectionTone ? sectionTone.progress : "bg-border"
