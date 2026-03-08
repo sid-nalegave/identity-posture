@@ -234,17 +234,16 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
 
       <div
         className="mx-auto w-full max-w-[1360px] flex-1 lg:grid"
-        style={{ gridTemplateColumns: isDesktop ? "220px minmax(0,1fr) 320px" : undefined }}
+        style={{ gridTemplateColumns: isDesktop ? "260px minmax(0,1fr) 320px" : undefined }}
       >
         {isDesktop ? (
           <aside
-            className="border-r border-border bg-surface px-4 py-6"
+            className="py-5"
             style={{ position: "sticky", top: NAV_H, height: `calc(100vh - ${NAV_H}px)`, overflowY: "auto" }}
           >
             <SectionNav
               sectionScores={sectionScores}
               showUnansweredOnly={showUnansweredOnly}
-              totalControls={totalControls}
               onToggleFilter={() => setShowUnansweredOnly((value) => !value)}
               onSectionClick={scrollToSection}
               onReset={handleReset}
