@@ -53,13 +53,13 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
           {/* Headline */}
           <h1
-            className="mb-8 font-sans text-text-primary"
-            style={{ fontSize: "clamp(30px, 4.5vw, 48px)", lineHeight: 1.15, letterSpacing: "-0.025em" }}
+            className="mb-8 text-text-primary"
+            style={{ fontFamily: "'Sora', sans-serif", fontSize: "52px", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-0.025em" }}
           >
             Find your organization's
             <br />
             identity gaps{" "}
-            <span className="text-accent">before they become incidents</span>
+            <span style={{ color: "#1d4ed8" }}>before they become incidents</span>
           </h1>
 
           {/* Subtext */}
@@ -67,8 +67,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             className="mx-auto mb-10 max-w-[500px] text-text-secondary"
             style={{ fontSize: "clamp(15px, 1.8vw, 18px)", lineHeight: 1.7 }}
           >
-            Assess 18 controls across authentication, access governance, and monitoring — scored
-            against NIST SP 800–63, CIS benchmarks, and enterprise IAM patterns.
+            Assess your controls across authentication, access governance, lifecycle, privileged access, and monitoring — and spot the gaps in your coverage.
           </p>
 
           {/* CTA button */}
@@ -103,13 +102,6 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
                 No account required
               </div>
               <div className="h-4 w-px flex-shrink-0" style={{ backgroundColor: "#2a3a5a" }} aria-hidden="true" />
-            </div>
-            {/* Row 2 */}
-            <div className="mt-5 flex items-center justify-center">
-              <div className="flex items-center gap-2 text-sm" style={{ color: "#8da3bf" }}>
-                <EyeIcon />
-                No vendor access to responses
-              </div>
             </div>
           </div>
         </section>
@@ -169,25 +161,6 @@ function PersonIcon() {
     >
       <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
       <circle cx="12" cy="7" r="4" />
-    </svg>
-  );
-}
-
-function EyeIcon() {
-  return (
-    <svg
-      width="15"
-      height="15"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="1.5"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      aria-hidden="true"
-    >
-      <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z" />
-      <circle cx="12" cy="12" r="3" />
     </svg>
   );
 }
