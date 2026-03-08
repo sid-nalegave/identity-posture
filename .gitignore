@@ -23,3 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 docs/
+AGENTS.md
+CLAUDE.md
+.env
+.env.*
+!.env.example
