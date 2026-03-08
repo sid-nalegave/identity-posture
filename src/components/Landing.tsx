@@ -34,9 +34,25 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
     <div className="min-h-screen bg-page text-text-primary">
       <nav className="border-b border-border bg-surface">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
-          <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-muted md:text-xs">
-            Identity Posture
-          </span>
+          <div className="flex items-center gap-[10px]">
+            <svg
+              width="18"
+              height="18"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              className="shrink-0 text-accent"
+              aria-hidden="true"
+            >
+              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
+            </svg>
+            <span className="font-mono text-[14px] font-semibold uppercase tracking-[0.08em] text-text-primary">
+              Identity Posture
+            </span>
+          </div>
           <div className="flex items-center gap-3">
             <span className="hidden text-xs text-text-faint sm:inline">
               Self-assessment. Not a certification.
@@ -79,8 +95,8 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             Begin Assessment
           </button>
 
-          <p className="mt-4 text-xs text-text-faint">
-            No account required. Assessment data remains in this browser.
+          <p className="mt-4 font-mono text-[13px] text-text-muted">
+            18 questions · Scored report in under 10 minutes
           </p>
         </section>
 
