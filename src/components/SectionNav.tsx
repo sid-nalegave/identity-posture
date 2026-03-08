@@ -36,7 +36,7 @@ export function SectionNav({
                   {section.answered}/{section.total}
                 </span>
               </div>
-              <div className="h-1 rounded-[6px] bg-border-subtle">
+              <div className="h-1.5 rounded-[6px] bg-border-subtle">
                 <div
                   className="h-full rounded-[6px] bg-accent transition-[width] duration-300"
                   style={{
