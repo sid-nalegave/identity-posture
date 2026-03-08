@@ -59,4 +59,13 @@ describe("QuestionCard", () => {
     expect(html).toContain("Hide notes");
     expect(html).toContain("Draft evidence");
   });
+
+  it("renders unanswered cards with the neutral state styling", () => {
+    const html = renderCard({
+      notes: "",
+      updated_at: "2026-01-01T00:00:00.000Z",
+    });
+
+    expect(html).toContain("border-l-border bg-surface");
+  });
 });

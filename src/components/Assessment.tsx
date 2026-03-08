@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from "react";
 import {
   calcOverallScore,
   getAnsweredCount,
+  getCompletedCount,
   getGapCount,
   getPostureInterpretation,
   getScoreBand,
@@ -66,7 +67,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
     saveAssessment(state);
   }, [state]);
 
-  const handleAnswer = (controlId: string, status: AnswerStatus) => {
+  const handleAnswer = (controlId: string, status: AnswerStatus | undefined) => {
     setState((previous) => updateResponse(previous, controlId, { status }));
   };
 
@@ -141,6 +142,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
   const sectionScores = getSectionScores(sections, controls, state.responses);
   const topRisks = getTopRisks(controls, state.responses);
   const answeredCount = getAnsweredCount(controls, state.responses);
+  const completedCount = getCompletedCount(controls, state.responses);
   const totalAnswered = answeredCount;
   const gapCount = getGapCount(controls, state.responses);
   const interpretation = getPostureInterpretation(sectionScores, answeredCount);
@@ -334,6 +336,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
               state={state}
               bank={bank}
               totalAnswered={totalAnswered}
+              isAssessmentComplete={completedCount === totalControls}
               totalControls={totalControls}
               gapCount={gapCount}
               onSectionClick={scrollToSection}

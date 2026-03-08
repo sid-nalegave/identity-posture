@@ -3,6 +3,7 @@ import {
   calcOverallScore,
   calcSectionScore,
   getAnsweredCount,
+  getCompletedCount,
   getGapCount,
   getPostureInterpretation,
   getScoreBand,
@@ -202,6 +203,23 @@ describe("getAnsweredCount", () => {
     };
 
     expect(getAnsweredCount(controls, responses)).toBe(0);
+  });
+});
+
+describe("getCompletedCount", () => {
+  it("counts answered and N/A responses as complete", () => {
+    const controls = [
+      makeControl({ id: "C1" }),
+      makeControl({ id: "C2" }),
+      makeControl({ id: "C3" }),
+    ];
+    const responses: AssessmentState["responses"] = {
+      C1: { status: "implemented", notes: "", updated_at: "" },
+      C2: { status: "na", notes: "", updated_at: "" },
+      C3: { notes: "draft", updated_at: "" },
+    };
+
+    expect(getCompletedCount(controls, responses)).toBe(2);
   });
 });
 

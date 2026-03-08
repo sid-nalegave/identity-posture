@@ -132,6 +132,13 @@ export function getAnsweredCount(
   }).length;
 }
 
+export function getCompletedCount(
+  controls: Control[],
+  responses: AssessmentState["responses"],
+): number {
+  return controls.filter((c) => responses[c.id]?.status !== undefined).length;
+}
+
 export function getGapCount(
   controls: Control[],
   responses: AssessmentState["responses"],

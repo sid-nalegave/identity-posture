@@ -41,12 +41,21 @@ export function updateResponse(
 ): AssessmentState {
   const existing = state.responses[controlId];
   const now = new Date().toISOString();
-  const nextStatus = patch.status ?? existing?.status;
-  const nextResponse: ControlResponse = {
-    notes: patch.notes ?? existing?.notes ?? "",
-    updated_at: now,
-    ...(nextStatus ? { status: nextStatus } : {}),
-  };
+  const hasStatusPatch = Object.prototype.hasOwnProperty.call(patch, "status");
+  const nextStatus = hasStatusPatch ? patch.status : existing?.status;
+  const nextNotes = patch.notes ?? existing?.notes ?? "";
+  const nextResponses = { ...state.responses };
+
+  if (nextStatus === undefined && nextNotes === "") {
+    delete nextResponses[controlId];
+  } else {
+    const nextResponse: ControlResponse = {
+      notes: nextNotes,
+      updated_at: now,
+      ...(nextStatus ? { status: nextStatus } : {}),
+    };
+    nextResponses[controlId] = nextResponse;
+  }
 
   return {
     ...state,
@@ -54,10 +63,7 @@ export function updateResponse(
       ...state.assessment_meta,
       updated_at: now,
     },
-    responses: {
-      ...state.responses,
-      [controlId]: nextResponse,
-    },
+    responses: nextResponses,
   };
 }
 
