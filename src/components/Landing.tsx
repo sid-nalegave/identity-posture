@@ -54,10 +54,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             </span>
           </div>
           <div className="flex items-center gap-3">
-            <span className="hidden text-xs text-text-faint sm:inline">
-              Self-assessment. Not a certification.
-            </span>
-            <ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
+<ThemeToggle isDark={isDark} onToggle={onToggleTheme} />
           </div>
         </div>
       </nav>
