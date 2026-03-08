@@ -53,17 +53,13 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
           {/* Headline */}
           <h1
-            className="mb-8 font-sans font-black text-text-primary"
+            className="mb-8 font-sans font-bold text-text-primary"
             style={{ fontSize: "clamp(38px, 6vw, 64px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
           >
             Find your organization's
             <br />
             identity gaps{" "}
-            <span className="text-accent">
-              before they
-              <br />
-              become incidents
-            </span>
+            <span className="text-accent">before they become incidents</span>
           </h1>
 
           {/* Subtext */}
