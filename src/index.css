@@ -161,7 +161,7 @@
   }
 
   .btn-primary {
-    @apply inline-flex cursor-pointer items-center justify-center rounded-[6px] border border-btn-border bg-btn-bg px-11 py-3.5 text-sm font-semibold tracking-[0.01em] text-btn-text transition-colors duration-150 hover:bg-accent-hover;
+    @apply inline-flex cursor-pointer items-center justify-center rounded-2xl border border-btn-border bg-btn-bg px-11 py-3.5 text-sm font-semibold tracking-[0.01em] text-btn-text transition-colors duration-150 hover:bg-accent-hover;
   }
 
   .btn-secondary {
