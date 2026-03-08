@@ -1,4 +1,3 @@
-import { useState } from "react";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 
 interface LandingProps {
@@ -25,11 +24,50 @@ const outcomes = [
   },
 ];
 
+const steps = [
+  {
+    index: "01",
+    label: "Answer 18 questions",
+    body: "Rate each identity control as implemented, partial, planned, or not in place.",
+  },
+  {
+    index: "02",
+    label: "Get your posture score",
+    body: "Scores calculated across all four domains — instantly, in your browser.",
+  },
+  {
+    index: "03",
+    label: "Act on your gaps",
+    body: "Prioritised findings with severity ratings help you decide what to fix first.",
+  },
+];
+
+const domains = [
+  {
+    id: "auth",
+    label: "Authentication & MFA",
+    description: "Password policies, MFA coverage, phishing-resistant methods.",
+  },
+  {
+    id: "pam",
+    label: "Privileged Access",
+    description: "Admin account controls, just-in-time access, PAM tooling.",
+  },
+  {
+    id: "lifecycle",
+    label: "Identity Lifecycle & Governance",
+    description: "Joiner/mover/leaver workflows, access reviews, IGA coverage.",
+  },
+  {
+    id: "monitoring",
+    label: "Monitoring & Detection",
+    description: "Identity threat detection, SIEM integration, alert coverage.",
+  },
+];
+
 const alignments = ["NIST SP 800-63", "CIS Controls", "Enterprise IAM patterns"];
 
 export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
-  const [isHovering, setIsHovering] = useState(false);
-
   return (
     <div className="min-h-screen bg-page text-text-primary">
       <nav className="border-b border-border bg-surface">
@@ -47,9 +85,10 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
       </nav>
 
       <main className="flex min-h-[calc(100vh-56px)] w-full flex-col">
+        {/* Hero */}
         <section className="hero-grid mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 pb-24 pt-20 md:pb-16 text-center">
           <div className="mb-10 inline-flex flex-wrap items-center justify-center gap-0 overflow-hidden rounded-[6px] border border-border bg-surface">
-            {["Workforce IAM", "18 controls", "Scored output"].map((text, index) => (
+            {["Workforce IAM", "4 domains", "18 controls", "~10 min"].map((text, index) => (
               <span
                 key={text}
                 className={`inline-flex items-center px-4 py-2 font-mono text-[11px] tracking-[0.08em] text-text-muted ${
@@ -74,16 +113,14 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             className="mb-12 max-w-xl text-text-secondary"
             style={{ fontSize: "clamp(15px, 1.8vw, 17px)", lineHeight: 1.75 }}
           >
-            Full coverage across identity domains, from authentication to monitoring. Know exactly
-            where you stand.
+            Full coverage across authentication, privileged access, identity lifecycle, and
+            monitoring. Know exactly where you stand in under ten minutes.
           </p>
 
           <button
             type="button"
             onClick={onStart}
-            onMouseOver={() => setIsHovering(true)}
-            onMouseOut={() => setIsHovering(false)}
-            className={`btn-primary text-base ${isHovering ? "bg-accent-hover" : ""}`}
+            className="btn-primary text-base"
           >
             Begin Assessment
           </button>
@@ -93,8 +130,53 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
           </p>
         </section>
 
-        <section className="border-t border-border bg-surface px-6 pt-14 pb-10 md:py-10 md:px-10">
+        {/* How it works */}
+        <section className="border-t border-border bg-page px-6 pt-14 pb-10 md:py-12 md:px-10">
           <div className="mx-auto max-w-5xl">
+            <p className="section-kicker">How it works</p>
+            <div className="grid overflow-hidden rounded-[6px] border border-border md:grid-cols-3">
+              {steps.map((step, index) => (
+                <div
+                  key={step.label}
+                  className={`bg-surface p-6 ${index > 0 ? "border-t border-border md:border-l md:border-t-0" : ""}`}
+                >
+                  <p className="mb-2 font-mono text-[11px] tracking-[0.08em] text-text-faint">
+                    {step.index}
+                  </p>
+                  <p className="mb-2 text-sm font-semibold tracking-[0.01em] text-text-primary">
+                    {step.label}
+                  </p>
+                  <p className="text-sm leading-relaxed text-text-secondary">{step.body}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What you'll assess */}
+        <section className="border-t border-border bg-surface px-6 pt-14 pb-10 md:py-12 md:px-10">
+          <div className="mx-auto max-w-5xl">
+            <p className="section-kicker">What you'll assess</p>
+            <div className="grid gap-3 sm:grid-cols-2">
+              {domains.map((domain) => (
+                <div
+                  key={domain.id}
+                  className="rounded-[6px] border border-border bg-page p-4"
+                >
+                  <p className="mb-1 text-sm font-semibold tracking-[0.01em] text-text-primary">
+                    {domain.label}
+                  </p>
+                  <p className="text-sm leading-relaxed text-text-secondary">{domain.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* What you'll get */}
+        <section className="border-t border-border bg-page px-6 pt-14 pb-10 md:py-12 md:px-10">
+          <div className="mx-auto max-w-5xl">
+            <p className="section-kicker">What you'll get</p>
             <div className="grid overflow-hidden rounded-[6px] border border-border md:grid-cols-3">
               {outcomes.map((item, index) => (
                 <div
@@ -117,7 +199,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
               {alignments.map((alignment) => (
                 <span
                   key={alignment}
-                  className="rounded-[6px] border border-border bg-page px-2.5 py-1 font-mono text-[11px] text-text-muted"
+                  className="rounded-[6px] border border-border bg-surface px-2.5 py-1 font-mono text-[11px] text-text-muted"
                 >
                   {alignment}
                 </span>
@@ -125,6 +207,38 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
             </div>
           </div>
         </section>
+
+        {/* Footer CTA */}
+        <section className="border-t border-border bg-surface px-6 py-12 text-center md:px-10">
+          <div className="mx-auto max-w-xl">
+            <p
+              className="mb-6 text-text-secondary"
+              style={{ fontSize: "clamp(15px, 1.6vw, 16px)", lineHeight: 1.7 }}
+            >
+              Ready to understand your identity security posture?
+            </p>
+            <button
+              type="button"
+              onClick={onStart}
+              className="btn-primary text-base"
+            >
+              Begin Assessment
+            </button>
+            <p className="mt-4 text-xs text-text-faint">Free. No sign-up. Runs entirely in your browser.</p>
+          </div>
+        </section>
+
+        {/* Footer */}
+        <footer className="border-t border-border bg-page px-6 py-6 md:px-10">
+          <div className="mx-auto flex max-w-5xl flex-wrap items-center justify-between gap-3">
+            <span className="font-mono text-[11px] uppercase tracking-[0.12em] text-text-faint">
+              Identity Posture
+            </span>
+            <p className="text-[11px] text-text-faint">
+              Self-assessment tool. Not a certification or audit. Results reflect your self-reported responses.
+            </p>
+          </div>
+        </footer>
       </main>
     </div>
   );
