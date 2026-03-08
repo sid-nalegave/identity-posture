@@ -183,6 +183,38 @@ describe("updateResponse", () => {
     expect(updated.responses["C1"].notes).toBe("draft note");
   });
 
+  it("removes a response when clearing the status and notes are empty", () => {
+    let state = createEmptyAssessment();
+    state = updateResponse(state, "C1", { status: "gap" });
+
+    const updated = updateResponse(state, "C1", { status: undefined });
+
+    expect(updated.responses["C1"]).toBeUndefined();
+  });
+
+  it("preserves note-only drafts when clearing the status", () => {
+    let state = createEmptyAssessment();
+    state = updateResponse(state, "C1", {
+      status: "gap",
+      notes: "keep this note",
+    });
+
+    const updated = updateResponse(state, "C1", { status: undefined });
+
+    expect(updated.responses["C1"].status).toBeUndefined();
+    expect(updated.responses["C1"].notes).toBe("keep this note");
+  });
+
+  it("does not clear status when patching notes only", () => {
+    let state = createEmptyAssessment();
+    state = updateResponse(state, "C1", { status: "partial" });
+
+    const updated = updateResponse(state, "C1", { notes: "evidence" });
+
+    expect(updated.responses["C1"].status).toBe("partial");
+    expect(updated.responses["C1"].notes).toBe("evidence");
+  });
+
   it("updates assessment metadata timestamp while preserving created_at", () => {
     const state = {
       assessment_meta: {

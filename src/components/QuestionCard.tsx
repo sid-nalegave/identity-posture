@@ -4,7 +4,7 @@ import type { AnswerStatus, Control, ControlResponse } from "../lib/types.ts";
 interface QuestionCardProps {
   control: Control;
   response: ControlResponse | undefined;
-  onAnswer: (controlId: string, status: AnswerStatus) => void;
+  onAnswer: (controlId: string, status: AnswerStatus | undefined) => void;
   onNotesChange: (controlId: string, notes: string) => void;
 }
 
@@ -41,7 +41,7 @@ const STATUS_OPTIONS: Array<{
     label: "N/A",
     key: "4",
     icon: "—",
-    classes: "border-border bg-page text-text-muted",
+    classes: "border-text-muted bg-page text-text-primary",
   },
 ] as const;
 
@@ -49,7 +49,7 @@ const STATUS_CARD_CLASSES: Record<AnswerStatus, string> = {
   implemented: "border-l-healthy bg-healthy-bg",
   partial: "border-l-warning bg-warning-bg",
   gap: "border-l-risk bg-risk-bg",
-  na: "border-l-border bg-surface",
+  na: "border-l-text-muted border-border bg-page",
 };
 
 export function QuestionCard({
@@ -76,14 +76,14 @@ export function QuestionCard({
 
   const handleAnswer = useCallback(
     (status: AnswerStatus) => {
-      onAnswer(control.id, status);
+      onAnswer(control.id, currentStatus === status ? undefined : status);
       setSaved(true);
       if (savedRef.current) {
         window.clearTimeout(savedRef.current);
       }
       savedRef.current = window.setTimeout(() => setSaved(false), 1500);
     },
-    [control.id, onAnswer],
+    [control.id, currentStatus, onAnswer],
   );
 
   const handleKeyDown = useCallback(

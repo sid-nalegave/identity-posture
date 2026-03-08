@@ -13,6 +13,7 @@ interface ResultsPanelProps {
   state: AssessmentState;
   bank: ControlBank;
   totalAnswered: number;
+  isAssessmentComplete: boolean;
   totalControls: number;
   gapCount: number;
   onSectionClick: (sectionId: string) => void;
@@ -55,6 +56,7 @@ export function ResultsPanel({
   state,
   bank,
   totalAnswered,
+  isAssessmentComplete,
   totalControls,
   gapCount,
   onSectionClick,
@@ -246,6 +248,7 @@ export function ResultsPanel({
           <button
             type="button"
             onClick={() => exportJSON(state, bank)}
+            disabled={!isAssessmentComplete}
             className="btn-secondary flex-1"
           >
             Export JSON
@@ -255,11 +258,17 @@ export function ResultsPanel({
             onClick={() =>
               exportMarkdown(state, bank, overallScore, scoreBand, sectionScores, topRisks)
             }
+            disabled={!isAssessmentComplete}
             className="btn-secondary flex-1"
           >
             Export Markdown
           </button>
         </div>
+        {!isAssessmentComplete ? (
+          <p className="mb-2 text-xs leading-relaxed text-text-faint">
+            Select a status for every control to enable export.
+          </p>
+        ) : null}
         <p className="text-xs leading-relaxed text-text-faint">
           Generated locally. Responses and notes remain in this browser until cleared.
         </p>

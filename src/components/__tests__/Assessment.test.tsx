@@ -3,6 +3,7 @@ import { describe, expect, it, vi } from "vitest";
 import { Assessment } from "../Assessment.tsx";
 import { AssessmentControls } from "../AssessmentControls.tsx";
 import { SectionNav } from "../SectionNav.tsx";
+import { ResultsPanel } from "../ResultsPanel.tsx";
 import { getVisibleControls, planNavigation } from "../assessmentNavigation.ts";
 import type { AssessmentState, Control } from "../../lib/types.ts";
 
@@ -224,5 +225,75 @@ describe("Assessment", () => {
     expect(html).toContain(
       "Generated locally. Responses and notes remain in this browser until cleared.",
     );
+  });
+});
+
+describe("ResultsPanel", () => {
+  it("disables exports until every control has a selected status", () => {
+    const html = renderToStaticMarkup(
+      <ResultsPanel
+        overallScore={50}
+        scoreBand="Partial Coverage"
+        interpretation="Test interpretation"
+        sectionScores={[]}
+        topRisks={[]}
+        state={{
+          assessment_meta: { created_at: "2026-01-01", updated_at: "2026-01-01" },
+          responses: {},
+        }}
+        bank={{
+          bank_id: "bank-1",
+          version: "1.0.0",
+          last_updated: "2026-01-01",
+          scope: "Workforce IAM",
+          control_count: 2,
+          sections: [],
+          controls,
+        }}
+        totalAnswered={1}
+        isAssessmentComplete={false}
+        totalControls={2}
+        gapCount={0}
+        onSectionClick={() => {}}
+        onControlClick={() => {}}
+      />,
+    );
+
+    expect(html).toContain("Select a status for every control to enable export.");
+    expect(html).toContain("Export JSON</button>");
+    expect(html).toContain("disabled");
+  });
+
+  it("keeps copy summary available before exports are enabled", () => {
+    const html = renderToStaticMarkup(
+      <ResultsPanel
+        overallScore={50}
+        scoreBand="Partial Coverage"
+        interpretation="Test interpretation"
+        sectionScores={[]}
+        topRisks={[]}
+        state={{
+          assessment_meta: { created_at: "2026-01-01", updated_at: "2026-01-01" },
+          responses: {},
+        }}
+        bank={{
+          bank_id: "bank-1",
+          version: "1.0.0",
+          last_updated: "2026-01-01",
+          scope: "Workforce IAM",
+          control_count: 2,
+          sections: [],
+          controls,
+        }}
+        totalAnswered={1}
+        isAssessmentComplete={false}
+        totalControls={2}
+        gapCount={0}
+        onSectionClick={() => {}}
+        onControlClick={() => {}}
+      />,
+    );
+
+    expect(html).toContain("Copy summary");
   });
 });
