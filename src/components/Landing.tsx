@@ -63,19 +63,18 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
           <h1
             className="mb-5 font-sans text-text-primary"
-            style={{ fontSize: "clamp(30px, 4.5vw, 48px)", lineHeight: 1.15, letterSpacing: "-0.025em" }}
+            style={{ fontSize: "52px", fontWeight: 600, lineHeight: 1.15, letterSpacing: "-0.025em" }}
           >
-            Structured review of your
-            <br />
-            <span className="text-accent">identity security controls</span>
+            Find your organization's identity gaps{" "}
+            <span className="text-accent" style={{ fontWeight: 600 }}>before they become incidents</span>
           </h1>
 
           <p
             className="mb-12 max-w-xl text-text-secondary"
             style={{ fontSize: "clamp(15px, 1.8vw, 17px)", lineHeight: 1.75 }}
           >
-            Full coverage across identity domains, from authentication to monitoring. Know exactly
-            where you stand.
+            Get a scored, prioritized view of your identity security gaps, with actionable
+            recommendations mapped to each control.
           </p>
 
           <button
