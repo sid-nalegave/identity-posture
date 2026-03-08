@@ -53,8 +53,8 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
           {/* Headline */}
           <h1
-            className="mb-8 font-sans font-bold text-text-primary"
-            style={{ fontSize: "clamp(38px, 6vw, 64px)", lineHeight: 1.08, letterSpacing: "-0.03em" }}
+            className="mb-8 font-sans text-text-primary"
+            style={{ fontSize: "clamp(30px, 4.5vw, 48px)", lineHeight: 1.15, letterSpacing: "-0.025em" }}
           >
             Find your organization's
             <br />
