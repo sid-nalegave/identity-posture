@@ -68,4 +68,15 @@ describe("QuestionCard", () => {
 
     expect(html).toContain("border-l-border bg-surface");
   });
+
+  it("renders N/A cards with a distinct selected treatment", () => {
+    const html = renderCard({
+      status: "na",
+      notes: "",
+      updated_at: "2026-01-01T00:00:00.000Z",
+    });
+
+    expect(html).toContain("border-l-text-muted border-border bg-page");
+    expect(html).toContain("border-text-muted bg-page text-text-primary font-semibold");
+  });
 });

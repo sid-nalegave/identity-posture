@@ -41,7 +41,7 @@ const STATUS_OPTIONS: Array<{
     label: "N/A",
     key: "4",
     icon: "—",
-    classes: "border-border bg-page text-text-muted",
+    classes: "border-text-muted bg-page text-text-primary",
   },
 ] as const;
 
@@ -49,7 +49,7 @@ const STATUS_CARD_CLASSES: Record<AnswerStatus, string> = {
   implemented: "border-l-healthy bg-healthy-bg",
   partial: "border-l-warning bg-warning-bg",
   gap: "border-l-risk bg-risk-bg",
-  na: "border-l-border bg-surface",
+  na: "border-l-text-muted border-border bg-page",
 };
 
 export function QuestionCard({
