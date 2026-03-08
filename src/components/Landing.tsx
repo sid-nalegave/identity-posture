@@ -44,7 +44,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
       <main className="flex flex-col items-center">
         {/* Hero */}
-        <section className="w-full max-w-3xl px-6 pb-12 pt-20 text-center">
+        <section className="w-full max-w-4xl px-6 pb-12 pt-20 text-center">
           {/* Alert pill */}
           <div className="mb-10 inline-flex items-center gap-2.5 rounded-full border border-risk-border bg-risk-bg px-4 py-2 text-sm text-risk">
             <span className="h-2 w-2 flex-shrink-0 rounded-full bg-risk" aria-hidden="true" />
@@ -64,7 +64,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
           {/* Subtext */}
           <p
-            className="mx-auto mb-10 max-w-[500px] text-text-secondary"
+            className="mx-auto mb-10 max-w-[600px] text-text-secondary"
             style={{ fontSize: "clamp(15px, 1.8vw, 18px)", lineHeight: 1.7 }}
           >
             Assess your controls across authentication, access governance, lifecycle, privileged access, and monitoring — and spot the gaps in your coverage.
@@ -88,7 +88,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
         </section>
 
         {/* Privacy card */}
-        <section className="w-full max-w-3xl px-6 pb-12">
+        <section className="w-full max-w-4xl px-6 pb-12">
           <div className="rounded-2xl px-8 py-7" style={{ backgroundColor: "#0d1526" }}>
             {/* Row 1 */}
             <div className="flex items-center justify-center">
@@ -107,7 +107,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
         </section>
 
         {/* Aligned with */}
-        <section className="w-full max-w-3xl px-6 pb-20">
+        <section className="w-full max-w-4xl px-6 pb-20">
           <div className="flex flex-wrap items-center justify-center gap-3">
             <span className="font-mono text-[10px] uppercase tracking-[0.15em] text-text-faint">
               Aligned with
