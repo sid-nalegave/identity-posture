@@ -48,17 +48,9 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
 
       <main className="flex min-h-[calc(100vh-56px)] w-full flex-col">
         <section className="hero-grid mx-auto flex w-full max-w-3xl flex-1 flex-col items-center justify-center px-6 pb-24 pt-20 md:pb-16 text-center">
-          <div className="mb-10 inline-flex flex-wrap items-center justify-center gap-0 overflow-hidden rounded-[6px] border border-border bg-surface">
-            {["Workforce IAM", "18 controls", "Scored output"].map((text, index) => (
-              <span
-                key={text}
-                className={`inline-flex items-center px-4 py-2 font-mono text-[11px] tracking-[0.08em] text-text-muted ${
-                  index > 0 ? "border-l border-border" : ""
-                }`}
-              >
-                {text}
-              </span>
-            ))}
+          <div className="mb-10 inline-flex items-center gap-2.5 rounded-full border border-risk-border bg-risk-bg px-4 py-2 font-sans text-[13px] font-medium tracking-[-0.01em] text-risk">
+            <span className="size-2 shrink-0 animate-pulse rounded-full bg-risk" />
+            Credential abuse is the #1 initial access vector in breaches (Verizon DBIR 2025)
           </div>
 
           <h1
