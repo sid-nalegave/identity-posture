@@ -50,6 +50,11 @@ describe("QuestionCard", () => {
     expect(html).not.toContain("Optional notes");
   });
 
+  it("renders the rationale toggle button with '?' label", () => {
+    const html = renderCard();
+    expect(html).toContain("?");
+  });
+
   it("shows note-only draft responses on initial render", () => {
     const html = renderCard({
       notes: "Draft evidence",

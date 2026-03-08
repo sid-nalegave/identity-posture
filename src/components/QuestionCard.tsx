@@ -129,7 +129,7 @@ export function QuestionCard({
         <button
           type="button"
           onClick={() => setShowHelp((value) => !value)}
-          className={`rounded-[6px] border px-2.5 py-1.5 font-mono text-[11px] font-semibold uppercase tracking-[0.08em] transition-colors ${
+          className={`rounded-[6px] border px-2.5 py-1.5 text-[11px] font-semibold uppercase transition-colors ${
             showHelp
               ? "border-accent bg-accent-subtle text-accent"
               : "border-border bg-surface text-text-muted hover:border-accent hover:text-accent"
@@ -137,7 +137,7 @@ export function QuestionCard({
           aria-expanded={showHelp}
           aria-label="Toggle rationale and examples"
         >
-          Why
+          ?
         </button>
       </div>
 
