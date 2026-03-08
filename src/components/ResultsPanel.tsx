@@ -149,6 +149,46 @@ export function ResultsPanel({
       </section>
 
       <section className="panel-card p-4">
+        <span className="section-kicker">Section Scores</span>
+        <div className="space-y-3">
+          {sectionScores.map((section) => {
+            const hasSectionScore = section.score !== null;
+            const score = section.score;
+            const sectionBand = score !== null ? getScoreBandInfo(score) : null;
+            const sectionTone = sectionBand ? toneClasses[sectionBand.tone] : null;
+
+            return (
+              <button
+                key={section.section_id}
+                type="button"
+                onClick={() => onSectionClick(section.section_id)}
+                className="block w-full rounded-[6px] border border-transparent px-2 py-2 text-left transition-colors hover:border-border hover:bg-page"
+              >
+                <div className="mb-1.5 flex items-start justify-between gap-3">
+                  <span className="text-sm text-text-secondary">{section.label}</span>
+                  <span
+                    className={`shrink-0 font-mono text-xs font-semibold ${
+                      hasSectionScore && sectionTone ? sectionTone.text : "text-text-muted"
+                    }`}
+                  >
+                    {score !== null ? `${Math.round(score)}%` : "N/A"}
+                  </span>
+                </div>
+                <div className="h-1.5 rounded-[6px] bg-border-subtle">
+                  <div
+                    className={`h-full rounded-[6px] transition-[width] duration-300 ${
+                      hasSectionScore && sectionTone ? sectionTone.progress : "bg-border"
+                    }`}
+                    style={{ width: `${score ?? 0}%` }}
+                  />
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </section>
+
+      <section className="panel-card p-4">
         <span className="section-kicker">Posture Summary</span>
         <div className="rounded-[6px] border border-accent-border bg-accent-subtle px-4 py-3">
           <p className="text-sm leading-loose text-text-body">{interpretation}</p>
@@ -188,46 +228,6 @@ export function ResultsPanel({
           </div>
         </section>
       ) : null}
-
-      <section className="panel-card p-4">
-        <span className="section-kicker">Section Scores</span>
-        <div className="space-y-3">
-          {sectionScores.map((section) => {
-            const hasSectionScore = section.score !== null;
-            const score = section.score;
-            const sectionBand = score !== null ? getScoreBandInfo(score) : null;
-            const sectionTone = sectionBand ? toneClasses[sectionBand.tone] : null;
-
-            return (
-              <button
-                key={section.section_id}
-                type="button"
-                onClick={() => onSectionClick(section.section_id)}
-                className="block w-full rounded-[6px] border border-transparent px-2 py-2 text-left transition-colors hover:border-border hover:bg-page"
-              >
-                <div className="mb-1.5 flex items-start justify-between gap-3">
-                  <span className="text-sm text-text-secondary">{section.label}</span>
-                  <span
-                    className={`shrink-0 font-mono text-xs font-semibold ${
-                      hasSectionScore && sectionTone ? sectionTone.text : "text-text-muted"
-                    }`}
-                  >
-                    {score !== null ? `${Math.round(score)}%` : "N/A"}
-                  </span>
-                </div>
-                <div className="h-1.5 rounded-[6px] bg-border-subtle">
-                  <div
-                    className={`h-full rounded-[6px] transition-[width] duration-300 ${
-                      hasSectionScore && sectionTone ? sectionTone.progress : "bg-border"
-                    }`}
-                    style={{ width: `${score ?? 0}%` }}
-                  />
-                </div>
-              </button>
-            );
-          })}
-        </div>
-      </section>
 
       <section className="panel-card p-4">
         <span className="section-kicker">Share & Export</span>
