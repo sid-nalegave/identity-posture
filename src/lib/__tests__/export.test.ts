@@ -56,14 +56,14 @@ describe("buildCopySummary", () => {
     const result = buildCopySummary(
       55,
       "Partial Coverage",
-      "Privileged Access represents the highest near-term exposure.",
+      "Privileged Access (41%) represents your highest-probability attack path.",
       sectionScores,
       topRisks,
     );
 
     expect(result).toContain("Score: 55");
     expect(result).toContain("Partial Coverage");
-    expect(result).toContain("Privileged Access represents");
+    expect(result).toContain("Privileged Access (41%) represents");
     expect(result).toContain("Authentication & MFA: 70%");
     expect(result).toContain("Privileged Access: N/A");
     expect(result).toContain("- Least Privilege");
