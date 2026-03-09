@@ -73,9 +73,9 @@
   --color-risk: #fc8181;
   --color-risk-bg: rgba(252, 129, 129, 0.1);
   --color-risk-border: rgba(252, 129, 129, 0.3);
-  --color-warning: #fb923c;
-  --color-warning-bg: rgba(251, 146, 60, 0.1);
-  --color-warning-border: rgba(251, 146, 60, 0.3);
+  --color-warning: #fbbf24;
+  --color-warning-bg: rgba(251, 191, 36, 0.1);
+  --color-warning-border: rgba(251, 191, 36, 0.3);
   --color-caution: #a9a06f;
   --color-caution-bg: rgba(95, 94, 47, 0.18);
   --color-caution-border: rgba(169, 160, 111, 0.22);
