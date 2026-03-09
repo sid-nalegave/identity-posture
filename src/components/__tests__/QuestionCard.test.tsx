@@ -35,7 +35,7 @@ describe("QuestionCard", () => {
     });
 
     expect(html).toContain("Hide notes");
-    expect(html).toContain("Optional notes");
+    expect(html).toContain("Notes appear in your exported report");
     expect(html).toContain("Existing evidence");
   });
 
@@ -46,8 +46,8 @@ describe("QuestionCard", () => {
       updated_at: "2026-01-01T00:00:00.000Z",
     });
 
-    expect(html).toContain("Add notes");
-    expect(html).not.toContain("Optional notes");
+    expect(html).toContain("Add context or evidence");
+    expect(html).not.toContain("Notes appear in your exported report");
   });
 
   it("renders the rationale toggle button with '?' label", () => {
