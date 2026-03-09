@@ -1,11 +1,11 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Identity Posture">
-  <rect width="64" height="64" rx="12" fill="#1A55C0" />
-  <circle cx="32" cy="24" r="9" fill="#FFFFFF" />
+  <rect width="64" height="64" rx="12" fill="#F5F7FB" />
   <path
-    d="M18 48c0-7.732 6.268-14 14-14s14 6.268 14 14"
+    d="M32 8 13 16.444V29.111C13 40.815 21.107 51.76 32 54.667c10.893-2.907 19-13.852 19-25.556V16.444L32 8Z"
     fill="none"
-    stroke="#FFFFFF"
-    stroke-width="8"
+    stroke="#1A55C0"
+    stroke-width="5.333"
     stroke-linecap="round"
+    stroke-linejoin="round"
   />
 </svg>
