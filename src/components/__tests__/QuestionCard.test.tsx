@@ -84,4 +84,24 @@ describe("QuestionCard", () => {
     expect(html).toContain("border-l-text-muted border-border bg-page");
     expect(html).toContain("border-text-muted bg-page text-text-primary font-semibold");
   });
+
+  it("shows exclusion note when N/A is selected", () => {
+    const html = renderCard({
+      status: "na",
+      notes: "",
+      updated_at: "2026-01-01T00:00:00.000Z",
+    });
+
+    expect(html).toContain("N/A controls are excluded from your posture score.");
+  });
+
+  it("does not show exclusion note when status is not N/A", () => {
+    const html = renderCard({
+      status: "gap",
+      notes: "",
+      updated_at: "2026-01-01T00:00:00.000Z",
+    });
+
+    expect(html).not.toContain("N/A controls are excluded from your posture score.");
+  });
 });

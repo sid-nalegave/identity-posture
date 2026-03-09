@@ -199,6 +199,12 @@ export function QuestionCard({
         ) : null}
       </div>
 
+      {currentStatus === "na" ? (
+        <p className="mb-2 text-xs text-text-muted">
+          N/A controls are excluded from your posture score.
+        </p>
+      ) : null}
+
       <button
         type="button"
         onClick={() => setShowNotes((value) => !value)}
