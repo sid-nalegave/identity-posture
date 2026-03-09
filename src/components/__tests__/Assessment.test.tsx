@@ -223,7 +223,7 @@ describe("Assessment", () => {
     );
 
     expect(html).toContain(
-      "Generated locally. Responses and notes remain in this browser until cleared.",
+      "Exports generated locally. Responses and notes remain in this browser until cleared.",
     );
   });
 });

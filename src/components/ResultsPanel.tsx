@@ -275,7 +275,7 @@ export function ResultsPanel({
           </p>
         ) : null}
         <p className="text-xs leading-relaxed text-text-faint">
-          Generated locally. Responses and notes remain in this browser until cleared.
+          Exports generated locally. Responses and notes remain in this browser until cleared.
         </p>
       </section>
     </div>
