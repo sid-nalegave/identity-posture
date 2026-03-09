@@ -172,6 +172,11 @@ export function getPostureInterpretation(
 
   const focusText = focusSections.join(" and ");
   const verb = focusSections.length === 1 ? "represents" : "represent";
+  const allSectionsPerfect = scored.every((section) => section.score === 100);
+
+  if (allSectionsPerfect) {
+    return "All scored identity areas are at 100%, indicating complete assessed coverage across the posture model.";
+  }
 
   const consequences: Record<string, string> = {
     auth: "Unresolved authentication gaps are a leading entry point for credential-based account takeover.",
