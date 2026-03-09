@@ -325,7 +325,10 @@ describe("getPostureInterpretation", () => {
       { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
     ];
     const result = getPostureInterpretation(sections, 10);
-    expect(result).toContain("Privileged Access represents");
+    expect(result).toContain("Privileged Access (41%) represents your highest-probability attack path.");
+    expect(result).toContain(
+      "Privilege gaps significantly increase the blast radius of any credential compromise.",
+    );
     expect(result).not.toContain("Identity Lifecycle");
   });
 
@@ -337,7 +340,32 @@ describe("getPostureInterpretation", () => {
       { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
     ];
     const result = getPostureInterpretation(sections, 10);
-    expect(result).toContain("Privileged Access and Identity Lifecycle represent");
+    expect(result).toContain(
+      "Privileged Access (41%) and Identity Lifecycle (46%) represent your highest-probability attack path.",
+    );
+  });
+
+  it("rounds section percentages in the interpretation label", () => {
+    const sections = [
+      {
+        section_id: "priv",
+        label: "Privileged Access",
+        score: 59.09090909090909,
+        answered: 3,
+        total: 5,
+      },
+      {
+        section_id: "life",
+        label: "Identity Lifecycle",
+        score: 63.4,
+        answered: 3,
+        total: 5,
+      },
+      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
+    ];
+
+    const result = getPostureInterpretation(sections, 10);
+    expect(result).toContain("Privileged Access (59%) and Identity Lifecycle (63%)");
   });
 
   it("ignores sections with null scores when selecting focus sections", () => {
@@ -348,7 +376,9 @@ describe("getPostureInterpretation", () => {
       { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
     ];
     const result = getPostureInterpretation(sections, 10);
-    expect(result).toContain("Privileged Access and Identity Lifecycle represent");
+    expect(result).toContain(
+      "Privileged Access (41%) and Identity Lifecycle (46%) represent your highest-probability attack path.",
+    );
     expect(result).not.toContain("Authentication & MFA");
   });
 });

@@ -162,24 +162,25 @@ export function getPostureInterpretation(
     return "Complete controls in at least two sections to generate a reliable posture summary.";
   }
 
+  const formatScore = (score: number) => `${Math.round(score)}%`;
   const lowest = scored[0];
-  const focusSections: string[] = [lowest.label];
+  const focusSections: string[] = [`${lowest.label} (${formatScore(lowest.score)})`];
 
   if (scored.length > 1 && scored[1].score - lowest.score <= 7) {
-    focusSections.push(scored[1].label);
+    focusSections.push(`${scored[1].label} (${formatScore(scored[1].score)})`);
   }
 
   const focusText = focusSections.join(" and ");
   const verb = focusSections.length === 1 ? "represents" : "represent";
 
   const consequences: Record<string, string> = {
-    auth: "Gaps here leave the organization exposed to credential-based account takeover.",
-    priv: "Gaps here significantly increase the blast radius of credential compromise.",
-    life: "Weak lifecycle controls often leave dormant access that attackers can exploit for persistence.",
+    auth: "Unresolved authentication gaps are a leading entry point for credential-based account takeover.",
+    priv: "Privilege gaps significantly increase the blast radius of any credential compromise.",
+    life: "Dormant accounts and unreviewed access are a leading persistence vector in credential-based breaches.",
     mon: "Without detection coverage, identity-based attacks may go unnoticed for extended periods.",
   };
 
   const consequence = consequences[lowest.section_id] ?? "";
 
-  return `${focusText} ${verb} the highest near-term exposure. ${consequence}`;
+  return `${focusText} ${verb} your highest-probability attack path. ${consequence}`;
 }
