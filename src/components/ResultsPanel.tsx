@@ -128,11 +128,11 @@ export function ResultsPanel({
               ))}
             </div>
             <p className="mt-3 text-xs text-text-muted">
-              {Math.round(overallScore)} indicates {bandInfo.label.toLowerCase()}, based on{" "}
+              Score of {Math.round(overallScore)} ({bandInfo.label}) based on{" "}
               <span className="font-mono">
                 {totalAnswered}/{totalControls}
               </span>{" "}
-              answered controls. N/A responses are excluded.
+              answered controls. N/A responses are excluded from scoring.
             </p>
           </>
         ) : (
