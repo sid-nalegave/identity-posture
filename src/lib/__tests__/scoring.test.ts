@@ -368,7 +368,35 @@ describe("getPostureInterpretation", () => {
     expect(result).toContain("Privileged Access (59%) and Identity Lifecycle (63%)");
   });
 
-  it("ignores sections with null scores when selecting focus sections", () => {
+  it("uses all-perfect coverage language when every scored section is 100%", () => {
+    const sections = [
+      { section_id: "auth", label: "Authentication & MFA", score: 100, answered: 5, total: 5 },
+      { section_id: "priv", label: "Privileged Access", score: 100, answered: 4, total: 4 },
+      { section_id: "life", label: "Identity Lifecycle", score: 100, answered: 5, total: 5 },
+    ];
+
+    const result = getPostureInterpretation(sections, 14);
+    expect(result).toBe(
+      "All scored identity areas are at 100%, indicating complete assessed coverage across the posture model.",
+    );
+  });
+
+  it("uses provisional language when any section is unscored", () => {
+    const sections = [
+      { section_id: "auth", label: "Authentication & MFA", score: 100, answered: 5, total: 5 },
+      { section_id: "priv", label: "Privileged Access", score: 100, answered: 4, total: 4 },
+      { section_id: "life", label: "Identity Lifecycle", score: null, answered: 0, total: 5 },
+      { section_id: "mon", label: "Monitoring", score: 100, answered: 4, total: 4 },
+    ];
+
+    const result = getPostureInterpretation(sections, 13);
+    expect(result).toBe(
+      "Current scored sections show strong coverage, but one or more sections are still incomplete, so the posture summary is provisional.",
+    );
+    expect(result).not.toContain("highest-probability attack path");
+  });
+
+  it("uses provisional language when any section score is null", () => {
     const sections = [
       { section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 5 },
       { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4 },
@@ -376,9 +404,9 @@ describe("getPostureInterpretation", () => {
       { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
     ];
     const result = getPostureInterpretation(sections, 10);
-    expect(result).toContain(
-      "Privileged Access (41%) and Identity Lifecycle (46%) represent your highest-probability attack path.",
+    expect(result).toBe(
+      "Current scored sections show strong coverage, but one or more sections are still incomplete, so the posture summary is provisional.",
     );
-    expect(result).not.toContain("Authentication & MFA");
+    expect(result).not.toContain("highest-probability attack path");
   });
 });
