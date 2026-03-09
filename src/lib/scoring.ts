@@ -174,9 +174,14 @@ export function getPostureInterpretation(
   const verb = focusSections.length === 1 ? "represents" : "represent";
   const allSectionsPerfect =
     scored.length === sectionScores.length && scored.every((section) => section.score === 100);
+  const hasUnscoredSections = scored.length !== sectionScores.length;
 
   if (allSectionsPerfect) {
     return "All scored identity areas are at 100%, indicating complete assessed coverage across the posture model.";
+  }
+
+  if (hasUnscoredSections) {
+    return "Current scored sections show strong coverage, but one or more sections are still incomplete, so the posture summary is provisional.";
   }
 
   const consequences: Record<string, string> = {
