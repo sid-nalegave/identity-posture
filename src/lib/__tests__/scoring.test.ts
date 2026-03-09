@@ -381,6 +381,22 @@ describe("getPostureInterpretation", () => {
     );
   });
 
+  it("does not use all-perfect coverage language when any section is unscored", () => {
+    const sections = [
+      { section_id: "auth", label: "Authentication & MFA", score: 100, answered: 5, total: 5 },
+      { section_id: "priv", label: "Privileged Access", score: 100, answered: 4, total: 4 },
+      { section_id: "life", label: "Identity Lifecycle", score: null, answered: 0, total: 5 },
+      { section_id: "mon", label: "Monitoring", score: 100, answered: 4, total: 4 },
+    ];
+
+    const result = getPostureInterpretation(sections, 13);
+    expect(result).not.toBe(
+      "All scored identity areas are at 100%, indicating complete assessed coverage across the posture model.",
+    );
+    expect(result).toContain("Authentication & MFA (100%) and Privileged Access (100%)");
+    expect(result).toContain("your highest-probability attack path");
+  });
+
   it("ignores sections with null scores when selecting focus sections", () => {
     const sections = [
       { section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 5 },

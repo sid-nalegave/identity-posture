@@ -172,7 +172,8 @@ export function getPostureInterpretation(
 
   const focusText = focusSections.join(" and ");
   const verb = focusSections.length === 1 ? "represents" : "represent";
-  const allSectionsPerfect = scored.every((section) => section.score === 100);
+  const allSectionsPerfect =
+    scored.length === sectionScores.length && scored.every((section) => section.score === 100);
 
   if (allSectionsPerfect) {
     return "All scored identity areas are at 100%, indicating complete assessed coverage across the posture model.";
