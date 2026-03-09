@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { ShieldIcon } from "./ShieldIcon.tsx";
 import { ThemeToggle } from "./ThemeToggle.tsx";
 
 interface LandingProps {
@@ -35,20 +36,7 @@ export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
       <nav className="border-b border-border bg-surface">
         <div className="mx-auto flex h-14 w-full max-w-7xl items-center justify-between gap-6 px-6 md:px-10">
           <div className="flex items-center gap-[10px]">
-            <svg
-              width="18"
-              height="18"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              className="shrink-0 text-accent"
-              aria-hidden="true"
-            >
-              <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-            </svg>
+            <ShieldIcon />
             <span className="font-mono text-[14px] font-semibold uppercase tracking-[0.08em] text-text-primary">
               Identity Posture
             </span>
