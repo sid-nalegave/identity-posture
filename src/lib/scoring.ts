@@ -162,11 +162,12 @@ export function getPostureInterpretation(
     return "Complete controls in at least two sections to generate a reliable posture summary.";
   }
 
+  const formatScore = (score: number) => `${Math.round(score)}%`;
   const lowest = scored[0];
-  const focusSections: string[] = [`${lowest.label} (${lowest.score}%)`];
+  const focusSections: string[] = [`${lowest.label} (${formatScore(lowest.score)})`];
 
   if (scored.length > 1 && scored[1].score - lowest.score <= 7) {
-    focusSections.push(`${scored[1].label} (${scored[1].score}%)`);
+    focusSections.push(`${scored[1].label} (${formatScore(scored[1].score)})`);
   }
 
   const focusText = focusSections.join(" and ");
