@@ -210,7 +210,7 @@ export function QuestionCard({
         onClick={() => setShowNotes((value) => !value)}
         className="text-sm text-text-muted transition-colors hover:text-accent"
       >
-        {showNotes ? "Hide notes" : "Add notes"}
+        {showNotes ? "Hide notes" : "Add context or evidence"}
       </button>
 
       {showNotes ? (
@@ -218,7 +218,7 @@ export function QuestionCard({
           <textarea
             value={notes}
             onChange={(event) => onNotesChange(control.id, event.target.value)}
-            placeholder="Optional notes"
+            placeholder="Notes appear in your exported report"
             className="min-h-[88px] w-full rounded-[6px] border border-accent-border bg-surface px-3 py-2 text-sm leading-relaxed text-text-body outline-none placeholder:text-text-faint"
           />
         </div>
