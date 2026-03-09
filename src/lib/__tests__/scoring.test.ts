@@ -381,7 +381,7 @@ describe("getPostureInterpretation", () => {
     );
   });
 
-  it("uses provisional language when any section is unscored", () => {
+  it("returns completion prompt when all scored sections are 100% but some are unscored", () => {
     const sections = [
       { section_id: "auth", label: "Authentication & MFA", score: 100, answered: 5, total: 5 },
       { section_id: "priv", label: "Privileged Access", score: 100, answered: 4, total: 4 },
@@ -391,12 +391,12 @@ describe("getPostureInterpretation", () => {
 
     const result = getPostureInterpretation(sections, 13);
     expect(result).toBe(
-      "Current scored sections show strong coverage, but one or more sections are still incomplete, so the posture summary is provisional.",
+      "All assessed sections are at 100%. Complete the remaining sections to finalize your posture summary.",
     );
     expect(result).not.toContain("highest-probability attack path");
   });
 
-  it("uses provisional language when any section score is null", () => {
+  it("shows weakest section and provisional note when some sections are unscored", () => {
     const sections = [
       { section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 5 },
       { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4 },
@@ -404,9 +404,8 @@ describe("getPostureInterpretation", () => {
       { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
     ];
     const result = getPostureInterpretation(sections, 10);
-    expect(result).toBe(
-      "Current scored sections show strong coverage, but one or more sections are still incomplete, so the posture summary is provisional.",
-    );
-    expect(result).not.toContain("highest-probability attack path");
+    expect(result).toContain("highest-probability attack path");
+    expect(result).toContain("Posture summary is provisional — not all sections are complete.");
+    expect(result).toContain("Privileged Access (41%)");
   });
 });

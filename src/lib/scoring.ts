@@ -172,16 +172,15 @@ export function getPostureInterpretation(
 
   const focusText = focusSections.join(" and ");
   const verb = focusSections.length === 1 ? "represents" : "represent";
-  const allSectionsPerfect =
-    scored.length === sectionScores.length && scored.every((section) => section.score === 100);
+  const allScoredPerfect = scored.every((section) => section.score === 100);
   const hasUnscoredSections = scored.length !== sectionScores.length;
 
-  if (allSectionsPerfect) {
+  if (allScoredPerfect && !hasUnscoredSections) {
     return "All scored identity areas are at 100%, indicating complete assessed coverage across the posture model.";
   }
 
-  if (hasUnscoredSections) {
-    return "Current scored sections show strong coverage, but one or more sections are still incomplete, so the posture summary is provisional.";
+  if (allScoredPerfect) {
+    return "All assessed sections are at 100%. Complete the remaining sections to finalize your posture summary.";
   }
 
   const consequences: Record<string, string> = {
@@ -192,6 +191,9 @@ export function getPostureInterpretation(
   };
 
   const consequence = consequences[lowest.section_id] ?? "";
+  const provisional = hasUnscoredSections
+    ? " Posture summary is provisional — not all sections are complete."
+    : "";
 
-  return `${focusText} ${verb} your highest-probability attack path. ${consequence}`;
+  return `${focusText} ${verb} your highest-probability attack path. ${consequence}${provisional}`;
 }
