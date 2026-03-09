@@ -241,7 +241,7 @@ export function ResultsPanel({
                 : "border-btn-inactive-border bg-btn-inactive text-text-secondary hover:border-accent hover:text-accent"
             }`}
           >
-            {copied ? "Summary copied" : "Copy summary"}
+            {copied ? "Executive summary copied" : "Copy executive summary"}
           </button>
         ) : null}
         <div className="mb-2 flex gap-2">
@@ -270,7 +270,7 @@ export function ResultsPanel({
           </p>
         ) : null}
         <p className="text-xs leading-relaxed text-text-faint">
-          Generated locally. Responses and notes remain in this browser until cleared.
+          Exports generated locally. Responses and notes remain in this browser until cleared.
         </p>
       </section>
     </div>

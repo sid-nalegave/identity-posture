@@ -223,7 +223,7 @@ describe("Assessment", () => {
     );
 
     expect(html).toContain(
-      "Generated locally. Responses and notes remain in this browser until cleared.",
+      "Exports generated locally. Responses and notes remain in this browser until cleared.",
     );
   });
 });
@@ -264,7 +264,7 @@ describe("ResultsPanel", () => {
     expect(html).toContain("disabled");
   });
 
-  it("keeps copy summary available before exports are enabled", () => {
+  it("keeps executive summary copy available before exports are enabled", () => {
     const html = renderToStaticMarkup(
       <ResultsPanel
         overallScore={50}
@@ -294,6 +294,6 @@ describe("ResultsPanel", () => {
       />,
     );
 
-    expect(html).toContain("Copy summary");
+    expect(html).toContain("Copy executive summary");
   });
 });
