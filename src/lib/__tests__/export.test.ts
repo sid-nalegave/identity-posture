@@ -66,7 +66,22 @@ describe("buildCopySummary", () => {
     expect(result).toContain("Privileged Access (41%) represents");
     expect(result).toContain("Authentication & MFA: 70%");
     expect(result).toContain("Privileged Access: N/A");
-    expect(result).toContain("- Least Privilege");
+    expect(result).toContain("- No Least Privilege");
+  });
+
+  it("prefixes gap risks with 'No' and partial risks with 'Partial:'", () => {
+    const makeRisk = (title: string, status: "gap" | "partial"): TopRisk => ({
+      control: { id: title, section_id: "auth", title, tier: "foundational", weight: 5, order: 1, prompt: "", rationale: "", next_step: "" },
+      status,
+    });
+
+    const result = buildCopySummary(50, "Partial Coverage", "", [], [
+      makeRisk("Phishing-Resistant MFA", "gap"),
+      makeRisk("Step-Up Authentication", "partial"),
+    ]);
+
+    expect(result).toContain("- No Phishing-Resistant MFA");
+    expect(result).toContain("- Partial: Step-Up Authentication");
   });
 
   it("limits top risks to 3", () => {
@@ -87,7 +102,7 @@ describe("buildCopySummary", () => {
     }));
 
     const result = buildCopySummary(30, "High Exposure", "test", sectionScores, topRisks);
-    const riskLines = result.split("\n").filter((l) => l.startsWith("- Risk"));
+    const riskLines = result.split("\n").filter((l) => l.startsWith("- No Risk"));
     expect(riskLines).toHaveLength(3);
   });
 

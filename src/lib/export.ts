@@ -146,7 +146,11 @@ export function buildCopySummary(
   lines.push("");
   lines.push("Top Risks");
   for (const risk of topRisks.slice(0, 3)) {
-    lines.push(`- ${risk.control.title}`);
+    const label =
+      risk.status === "gap"
+        ? `No ${risk.control.title}`
+        : `Partial: ${risk.control.title}`;
+    lines.push(`- ${label}`);
   }
   return lines.join("\n");
 }
