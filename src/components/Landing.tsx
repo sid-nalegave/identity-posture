@@ -25,7 +25,7 @@ const outcomes = [
   },
 ];
 
-const alignments = ["NIST SP 800-64", "CIS Controls", "Enterprise IAM patterns"];
+const alignments = ["NIST SP 800-63-4", "CIS Controls", "Enterprise IAM patterns"];
 
 export function Landing({ isDark, onStart, onToggleTheme }: LandingProps) {
   const [isHovering, setIsHovering] = useState(false);
