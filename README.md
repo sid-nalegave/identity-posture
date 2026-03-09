@@ -1,6 +1,6 @@
 # Identity Security Posture Review
 
-Identity Security Posture Review is a browser-based self-assessment for workforce IAM controls. It helps security and identity teams score coverage across the identity domains most often involved in credential-driven incidents, identify immediate exposure, and generate a concise summary for leadership.
+Identity Security Posture Review is a self-assessment for workforce IAM controls. It helps security and identity teams score coverage across the identity domains most often involved in credential-driven incidents, identify immediate exposure, and generate a concise summary for leadership.
 
 Live app: [identity-posture.nalegave.com](https://identity-posture.nalegave.com)
 
@@ -58,4 +58,4 @@ npm run build
 
 - The app is designed for static hosting.
 - Assessment data remains in the browser unless the user exports it.
-- The repository includes a baseline Content Security Policy in [`index.html`](/Users/sidnalegave-mini/Projects/web/identity-posture/index.html), but production deployments should still send security headers at the HTTP layer.
+- The repository injects a baseline Content Security Policy at build time from [`vite.config.ts`](/Users/sidnalegave-mini/Projects/web/identity-posture/vite.config.ts), but production deployments should still send security headers at the HTTP layer.
