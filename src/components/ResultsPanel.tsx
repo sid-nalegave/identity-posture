@@ -232,17 +232,22 @@ export function ResultsPanel({
       <section className="panel-card p-4">
         <span className="section-kicker">Share & Export</span>
         {hasScore ? (
-          <button
-            type="button"
-            onClick={handleCopy}
-            className={`mb-2 w-full rounded-[6px] border px-4 py-2 text-sm font-medium transition-colors ${
-              copied
-                ? "border-healthy-border bg-healthy-bg text-healthy"
-                : "border-btn-inactive-border bg-btn-inactive text-text-secondary hover:border-accent hover:text-accent"
-            }`}
-          >
-            {copied ? "Summary copied" : "Copy summary"}
-          </button>
+          <>
+            <button
+              type="button"
+              onClick={handleCopy}
+              className={`mb-2 w-full rounded-[6px] border px-4 py-2 text-sm font-medium transition-colors ${
+                copied
+                  ? "border-healthy-border bg-healthy-bg text-healthy"
+                  : "border-btn-inactive-border bg-btn-inactive text-text-secondary hover:border-accent hover:text-accent"
+              }`}
+            >
+              {copied ? "Executive summary copied" : "Copy executive summary"}
+            </button>
+            <p className="mb-2 text-xs leading-relaxed text-text-faint">
+              Posture score, section scores, and top risks - formatted for sharing.
+            </p>
+          </>
         ) : null}
         <div className="mb-2 flex gap-2">
           <button
