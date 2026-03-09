@@ -302,7 +302,7 @@ describe("getPostureInterpretation", () => {
   it("returns the new fallback message when fewer than 3 controls are answered", () => {
     const result = getPostureInterpretation([], 2);
     expect(result).toBe(
-      "Complete controls in at least two sections to generate a reliable posture summary.",
+      "Complete more controls to generate a reliable posture summary.",
     );
   });
 
@@ -313,7 +313,7 @@ describe("getPostureInterpretation", () => {
     ];
     const result = getPostureInterpretation(sections, 3);
     expect(result).toBe(
-      "Complete controls in at least two sections to generate a reliable posture summary.",
+      "Complete more controls to generate a reliable posture summary.",
     );
   });
 

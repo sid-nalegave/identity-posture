@@ -151,7 +151,7 @@ export function getPostureInterpretation(
   answeredCount: number,
 ): string {
   if (answeredCount < 3) {
-    return "Complete controls in at least two sections to generate a reliable posture summary.";
+    return "Complete more controls to generate a reliable posture summary.";
   }
 
   const scored = sectionScores
@@ -159,7 +159,7 @@ export function getPostureInterpretation(
     .sort((a, b) => a.score - b.score);
 
   if (scored.length < 2) {
-    return "Complete controls in at least two sections to generate a reliable posture summary.";
+    return "Complete more controls to generate a reliable posture summary.";
   }
 
   const formatScore = (score: number) => `${Math.round(score)}%`;
