@@ -29,9 +29,9 @@
   --color-risk: #c53030;
   --color-risk-bg: #fef2f2;
   --color-risk-border: #fecaca;
-  --color-warning: #7a5a12;
-  --color-warning-bg: #f7f1e3;
-  --color-warning-border: #e7d7ad;
+  --color-warning: #c2410c;
+  --color-warning-bg: #fff7ed;
+  --color-warning-border: #fed7aa;
   --color-caution: #6f6618;
   --color-caution-bg: #f5f2e8;
   --color-caution-border: #ddd5b8;
@@ -73,9 +73,9 @@
   --color-risk: #fc8181;
   --color-risk-bg: rgba(252, 129, 129, 0.1);
   --color-risk-border: rgba(252, 129, 129, 0.3);
-  --color-warning: #b9ab76;
-  --color-warning-bg: rgba(96, 82, 28, 0.18);
-  --color-warning-border: rgba(185, 171, 118, 0.22);
+  --color-warning: #fb923c;
+  --color-warning-bg: rgba(251, 146, 60, 0.1);
+  --color-warning-border: rgba(251, 146, 60, 0.3);
   --color-caution: #a9a06f;
   --color-caution-bg: rgba(95, 94, 47, 0.18);
   --color-caution-border: rgba(169, 160, 111, 0.22);
