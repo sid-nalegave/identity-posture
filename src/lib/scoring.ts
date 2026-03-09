@@ -78,12 +78,16 @@ export function getSectionScores(
         return response?.status !== undefined && response.status !== "na";
       },
     ).length;
+    const gapCount = sectionControls.filter((c) => responses[c.id]?.status === "gap").length;
+    const partialCount = sectionControls.filter((c) => responses[c.id]?.status === "partial").length;
     return {
       section_id: s.section_id,
       label: s.label,
       score: calcSectionScore(s.section_id, controls, responses),
       answered,
       total: sectionControls.length,
+      gapCount,
+      partialCount,
     };
   });
 }

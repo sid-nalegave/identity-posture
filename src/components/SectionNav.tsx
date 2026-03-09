@@ -36,6 +36,12 @@ export function SectionNav({
                   <span className="text-xs text-text-secondary">{section.label}</span>
                   <span className="shrink-0 font-mono text-[11px] text-text-muted">
                     {section.answered}/{section.total}
+                    {section.gapCount > 0 ? (
+                      <span className="ml-1.5 text-risk">● {section.gapCount}</span>
+                    ) : null}
+                    {section.partialCount > 0 ? (
+                      <span className="ml-1 text-warning">◐ {section.partialCount}</span>
+                    ) : null}
                   </span>
                 </div>
                 <div className="mt-2 h-1 rounded-full bg-border-subtle">

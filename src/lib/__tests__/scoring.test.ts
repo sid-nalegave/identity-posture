@@ -296,6 +296,24 @@ describe("getSectionScores", () => {
     expect(score.answered).toBe(0);
     expect(score.score).toBeNull();
   });
+
+  it("counts gap and partial controls per section", () => {
+    const sections: Section[] = [{ section_id: "auth", label: "Auth" }];
+    const controls = [
+      makeControl({ id: "C1", section_id: "auth" }),
+      makeControl({ id: "C2", section_id: "auth" }),
+      makeControl({ id: "C3", section_id: "auth" }),
+    ];
+    const responses: AssessmentState["responses"] = {
+      C1: { status: "gap", notes: "", updated_at: "" },
+      C2: { status: "partial", notes: "", updated_at: "" },
+      C3: { status: "implemented", notes: "", updated_at: "" },
+    };
+
+    const [score] = getSectionScores(sections, controls, responses);
+    expect(score.gapCount).toBe(1);
+    expect(score.partialCount).toBe(1);
+  });
 });
 
 describe("getPostureInterpretation", () => {
@@ -308,8 +326,8 @@ describe("getPostureInterpretation", () => {
 
   it("returns the new fallback message when fewer than 2 sections have scores", () => {
     const sections = [
-      { section_id: "auth", label: "Authentication & MFA", score: 80, answered: 3, total: 5 },
-      { section_id: "priv", label: "Privileged Access", score: null, answered: 0, total: 4 },
+      { section_id: "auth", label: "Authentication & MFA", score: 80, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "priv", label: "Privileged Access", score: null, answered: 0, total: 4, gapCount: 0, partialCount: 0 },
     ];
     const result = getPostureInterpretation(sections, 3);
     expect(result).toBe(
@@ -319,10 +337,10 @@ describe("getPostureInterpretation", () => {
 
   it("identifies single lowest section", () => {
     const sections = [
-      { section_id: "auth", label: "Authentication & MFA", score: 80, answered: 3, total: 5 },
-      { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4 },
-      { section_id: "life", label: "Identity Lifecycle", score: 60, answered: 3, total: 5 },
-      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
+      { section_id: "auth", label: "Authentication & MFA", score: 80, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4, gapCount: 0, partialCount: 0 },
+      { section_id: "life", label: "Identity Lifecycle", score: 60, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4, gapCount: 0, partialCount: 0 },
     ];
     const result = getPostureInterpretation(sections, 10);
     expect(result).toContain("Privileged Access represents");
@@ -331,10 +349,10 @@ describe("getPostureInterpretation", () => {
 
   it("includes second section when within 7 points", () => {
     const sections = [
-      { section_id: "auth", label: "Authentication & MFA", score: 80, answered: 3, total: 5 },
-      { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4 },
-      { section_id: "life", label: "Identity Lifecycle", score: 46, answered: 3, total: 5 },
-      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
+      { section_id: "auth", label: "Authentication & MFA", score: 80, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4, gapCount: 0, partialCount: 0 },
+      { section_id: "life", label: "Identity Lifecycle", score: 46, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4, gapCount: 0, partialCount: 0 },
     ];
     const result = getPostureInterpretation(sections, 10);
     expect(result).toContain("Privileged Access and Identity Lifecycle represent");
@@ -342,10 +360,10 @@ describe("getPostureInterpretation", () => {
 
   it("ignores sections with null scores when selecting focus sections", () => {
     const sections = [
-      { section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 5 },
-      { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4 },
-      { section_id: "life", label: "Identity Lifecycle", score: 46, answered: 3, total: 5 },
-      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4 },
+      { section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "priv", label: "Privileged Access", score: 41, answered: 2, total: 4, gapCount: 0, partialCount: 0 },
+      { section_id: "life", label: "Identity Lifecycle", score: 46, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "mon", label: "Monitoring", score: 72, answered: 2, total: 4, gapCount: 0, partialCount: 0 },
     ];
     const result = getPostureInterpretation(sections, 10);
     expect(result).toContain("Privileged Access and Identity Lifecycle represent");

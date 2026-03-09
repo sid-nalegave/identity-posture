@@ -120,7 +120,7 @@ describe("SectionNav", () => {
   it("renders section progress and omits Scope block", () => {
     const html = renderToStaticMarkup(
       <SectionNav
-        sectionScores={[{ section_id: "auth", label: "Authentication", answered: 1, total: 3, score: null }]}
+        sectionScores={[{ section_id: "auth", label: "Authentication", answered: 1, total: 3, score: null, gapCount: 0, partialCount: 0 }]}
         showUnansweredOnly={false}
         onToggleFilter={() => {}}
         onSectionClick={() => {}}

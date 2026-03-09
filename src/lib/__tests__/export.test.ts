@@ -33,8 +33,8 @@ afterEach(() => {
 describe("buildCopySummary", () => {
   it("builds formatted summary text", () => {
     const sectionScores: SectionScore[] = [
-      { section_id: "auth", label: "Authentication & MFA", score: 70, answered: 3, total: 5 },
-      { section_id: "priv", label: "Privileged Access", score: null, answered: 0, total: 4 },
+      { section_id: "auth", label: "Authentication & MFA", score: 70, answered: 3, total: 5, gapCount: 0, partialCount: 0 },
+      { section_id: "priv", label: "Privileged Access", score: null, answered: 0, total: 4, gapCount: 0, partialCount: 0 },
     ];
     const topRisks: TopRisk[] = [
       {
@@ -107,7 +107,7 @@ describe("buildCopySummary", () => {
       bank,
       55,
       "Partial Coverage",
-      [{ section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 1 }],
+      [{ section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 1, gapCount: 0, partialCount: 0 }],
       [],
     );
 
@@ -133,7 +133,7 @@ describe("buildCopySummary", () => {
       bank,
       0,
       "High Exposure",
-      [{ section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 1 }],
+      [{ section_id: "auth", label: "Authentication & MFA", score: null, answered: 0, total: 1, gapCount: 0, partialCount: 0 }],
       [],
     );
 

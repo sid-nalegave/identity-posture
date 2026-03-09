@@ -61,6 +61,8 @@ export interface SectionScore {
   score: number | null;
   answered: number;
   total: number;
+  gapCount: number;
+  partialCount: number;
 }
 
 export interface TopRisk {
