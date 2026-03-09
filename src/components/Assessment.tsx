@@ -19,6 +19,7 @@ import {
 import type { AnswerStatus, AssessmentState, ControlBank } from "../lib/types.ts";
 import controlData from "../identity-controls-v2.1.json";
 import { AssessmentControls } from "./AssessmentControls.tsx";
+import { ShieldIcon } from "./ShieldIcon.tsx";
 import { QuestionCard } from "./QuestionCard.tsx";
 import { ResultsPanel } from "./ResultsPanel.tsx";
 import { SectionNav } from "./SectionNav.tsx";
@@ -166,20 +167,7 @@ export function Assessment({ isDark, onBack, onToggleTheme }: AssessmentProps) {
             </button>
             {isDesktop ? (
               <div className="flex items-center gap-[10px]">
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="shrink-0 text-accent"
-                  aria-hidden="true"
-                >
-                  <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z" />
-                </svg>
+                <ShieldIcon />
                 <span className="font-mono text-[14px] font-semibold uppercase tracking-[0.08em] text-text-primary">
                   Identity Posture
                 </span>
