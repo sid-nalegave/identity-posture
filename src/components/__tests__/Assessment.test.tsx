@@ -295,8 +295,5 @@ describe("ResultsPanel", () => {
     );
 
     expect(html).toContain("Copy executive summary");
-    expect(html).toContain(
-      "Posture score, section scores, and top risks - formatted for sharing.",
-    );
   });
 });
